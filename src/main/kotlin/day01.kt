@@ -14,12 +14,26 @@ val arr = listOf("1abc2",
 "pqr3stu8vwx",
 "a1b2c3d4e5f",
 "treb7uchet")
-    val tmp = arr.joinToString(separator = "")
+    val tmp = arr.joinToString(separator = "").toString()
     println(tmp)
-    val digits = intArrayOf()
+//    val digits = intArrayOf()
 
-    for (letter in tmp.chars()) {
-        print(letter)
+//    println("asdf".split(""))
+//    tmp.split("")
+
+//    for (letter in tmp.split("")) {
+//        if letter..isD
+//    }
+
+    val chars = listOf('a', '+', '1')
+    val digits = tmp.toCharArray().filter {
+        it.isDigit()
+    }
+    println(digits) // [1]
+//    println(notDigits) // [a, +]
+
+    for (i in 0 .. digits.size/2) {
+        println(digits[i].toString() + digits[i+1].toString())
     }
 }
 
