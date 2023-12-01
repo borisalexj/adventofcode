@@ -3,40 +3,51 @@ fun main(args: Array<String>) {
     val convertedArray = arrayListOf<String>()
     val res = arrayListOf<Int>()
 
-val globalPairsToReplace  = arrayListOf<Pair<Int,String>>()
+    val globalPairsToReplace = arrayListOf<Pair<Int, String>>()
 
 //    for (line in sampleInput0102) {
     var replacements = 0
     for (line in real01) {
         var lineCopy = line
 
-        while (digitNamesPairs.any { lineCopy.contains(it) } ) {
-            val pairsToReplace = digitNamesPairs.map {
-                Pair(lineCopy.indexOf(it), it)
-            }.filter { it.first != -1 }.sortedBy {
-                it.first
-            }
+//        while (digitNamesPairs.any { lineCopy.contains(it) } ) {
+        val firstToReplace = digitNamesPairs.map {
+            Pair(lineCopy.indexOf(it), it)
+        }.filter { it.first != -1 }.sortedBy {
+            it.first
+        }.firstOrNull()
 
-             println(pairsToReplace)
+        val lastToReplace = digitNamesPairs.map {
+            Pair(lineCopy.lastIndexOf(it), it)
+        }.filter { it.first != -1 }.sortedBy {
+            it.first
+        }.lastOrNull()
 
+             println(firstToReplace.toString() + " | " + lastToReplace)
 
-            pairsToReplace[0].let {
-                if (lineCopy.contains(it.second)) {
-                    lineCopy = lineCopy.replaceFirst(it.second, digitNamesPairs.indexOf(it.second).toString())
-                    replacements = replacements + 1
-                }
-            }
+        if (firstToReplace != null) {
+            lineCopy =
+                line.replace(firstToReplace.second, digitNamesPairs.indexOf(firstToReplace.second).toString())
+//        } else {
+//            lineCopy = line
         }
+        if (lastToReplace != null) {
+            lineCopy = lineCopy + line.replace(
+                lastToReplace.second,
+                digitNamesPairs.indexOf(lastToReplace.second).toString()
+            )
+        }
+//        }
         convertedArray.add(lineCopy)
 
         val digits = lineCopy.toCharArray().filter { it.isDigit() }
-        val currRes = if (digits.size >1) {
-            (digits[0].toString() + digits[digits.size-1]).toInt()
+        val currRes = if (digits.size > 1) {
+            (digits[0].toString() + digits[digits.size - 1]).toInt()
         } else {
             (digits[0].toString() + digits[0]).toInt()
         }
         res.add(currRes)
-        println(line + " | " + lineCopy +" | "+ digits + " | " + currRes)
+        println(" | " + line + " | " + lineCopy + " | " + digits + " | " + currRes)
     }
 
 //    for (test in  convertedArray) {
@@ -63,29 +74,29 @@ val globalPairsToReplace  = arrayListOf<Pair<Int,String>>()
 }
 
 
-val digitNamesPairs = listOf(
-"zero",
-"one",
-"two",
-"three",
-"four",
-"five",
-"six",
-"seven",
-"eight",
-"nine",
-)
+//val digitNamesPairs = listOf(
+//"zero",
+//"one",
+//"two",
+//"three",
+//"four",
+//"five",
+//"six",
+//"seven",
+//"eight",
+//"nine",
+//)
 
 
-val sampleInput0102 = listOf(
-"two1nine",
-"eightwothree",
-"abcone2threexyz",
-"xtwone3four",
-"4nineeightseven2",
-"zoneight234",
-"7pqrstsixteen",
-)
+//val sampleInput0102 = listOf(
+//"two1nine",
+//"eightwothree",
+//"abcone2threexyz",
+//"xtwone3four",
+//"4nineeightseven2",
+//"zoneight234",
+//"7pqrstsixteen",
+//)
 //--- Part Two ---
 //
 //Your calculation isn't quite right. It looks like some of the digits are actually
