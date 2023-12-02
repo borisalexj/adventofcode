@@ -1,3 +1,5 @@
+package day01
+
 fun main(args: Array<String>) {
 
     val convertedArray = arrayListOf<String>()
@@ -18,7 +20,7 @@ fun main(args: Array<String>) {
         }.firstOrNull()
 
         val lastToReplace = digitNamesPairs.map {
-            Pair(lineCopy.indexOf(it), it)
+            Pair(lineCopy.lastIndexOf(it), it)
         }.filter { it.first != -1 }.sortedBy {
             it.first
         }.lastOrNull()
