@@ -35,7 +35,7 @@ fun main(args: Array<String>) {
                 currentNumber = currentNumber + symbol
             }
 
-            val check = checkForStar(indexX, indexY, input)
+            val check = checkForStarSurrounding(indexX, indexY, input)
             if (symbol.isDigit() && check.first) {
                 digitIsOk = true
                 starX = check.second
@@ -137,26 +137,26 @@ fun main(args: Array<String>) {
 
 }
 
-fun checkForStar(indexX: Int, indexY: Int, input: List<String>) : Triple<Boolean, Int, Int> {
+fun checkForStarSurrounding(indexX: Int, indexY: Int, input: List<String>) : Triple<Boolean, Int, Int> {
     val isOk = false
 
-    if (checkForStarSurrounding(input.getOrNull(indexY-1)?.getOrNull(indexX-1)))return Triple(true, indexX-1, indexY-1)
-    if (checkForStarSurrounding(input.getOrNull(indexY-1)?.getOrNull(indexX)))return Triple(true, indexX, indexY-1)
-    if (checkForStarSurrounding(input.getOrNull(indexY-1)?.getOrNull(indexX+1)))return Triple(true, indexX+1, indexY-1)
+    if (checkForStar(input.getOrNull(indexY-1)?.getOrNull(indexX-1)))return Triple(true, indexX-1, indexY-1)
+    if (checkForStar(input.getOrNull(indexY-1)?.getOrNull(indexX)))return Triple(true, indexX, indexY-1)
+    if (checkForStar(input.getOrNull(indexY-1)?.getOrNull(indexX+1)))return Triple(true, indexX+1, indexY-1)
 
-    if (checkForStarSurrounding(input.getOrNull(indexY)?.getOrNull(indexX-1)))return Triple(true, indexX-1, indexY)
-    if (checkForStarSurrounding(input.getOrNull(indexY)?.getOrNull(indexX+1)))return Triple(true, indexX+1, indexY)
+    if (checkForStar(input.getOrNull(indexY)?.getOrNull(indexX-1)))return Triple(true, indexX-1, indexY)
+    if (checkForStar(input.getOrNull(indexY)?.getOrNull(indexX+1)))return Triple(true, indexX+1, indexY)
 
-    if (checkForStarSurrounding(input.getOrNull(indexY+1)?.getOrNull(indexX-1)))return Triple(true, indexX-1, indexY+1)
-    if (checkForStarSurrounding(input.getOrNull(indexY+1)?.getOrNull(indexX)))return Triple(true, indexX, indexY+1)
-    if (checkForStarSurrounding(input.getOrNull(indexY+1)?.getOrNull(indexX+1)))return Triple(true, indexX+1, indexY+1)
+    if (checkForStar(input.getOrNull(indexY+1)?.getOrNull(indexX-1)))return Triple(true, indexX-1, indexY+1)
+    if (checkForStar(input.getOrNull(indexY+1)?.getOrNull(indexX)))return Triple(true, indexX, indexY+1)
+    if (checkForStar(input.getOrNull(indexY+1)?.getOrNull(indexX+1)))return Triple(true, indexX+1, indexY+1)
 
     return Triple(false, -1, -1)
 }
 
 
 
-fun checkForStarSurrounding(s: Char?) : Boolean {
+fun checkForStar(s: Char?) : Boolean {
     if (s == null) return false
     if (s.isDigit() == true) return false
     if (s.equals('.') == true) return false
