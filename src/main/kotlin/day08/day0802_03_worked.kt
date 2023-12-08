@@ -67,8 +67,6 @@ result steps = 18559 - MTZ
 LDA
 result steps = 16897 - DPZ
 
-
-AAA
 20221
 13019
 19667
