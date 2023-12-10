@@ -2,7 +2,7 @@ package day09
 
 import day04.realInput0401_
 fun main(args: Array<String>) {
-    val parsedInput = realinput09.map {
+    val parsedInput = realinput09_.map {
         it.split(" ").filter { it.isNotEmpty() }.map { it.toLong() }
      }
      println(parsedInput)
@@ -30,16 +30,16 @@ fun main(args: Array<String>) {
          var tempAdd = 0L
          var nextVal = 0L
          for (subpred in predictions.reversed()) {
-             if (subpred.all { it == 0L}) continue
+             if (subpred.all {  it == 0L}) continue
              else {
-                 nextVal = subpred[subpred.size -1] + nextVal
-                 tempAdd = subpred[subpred.size -1] - subpred[subpred.size -2]
-                 subpred.add(nextVal)
+                 nextVal = subpred[0] - nextVal
+                 tempAdd = subpred[1] - subpred[0]
+                 subpred.add(0, nextVal)
              }
 
          }
          println(predictions)
-         val nextElement = history.last() + nextVal
+         val nextElement = history.first() - nextVal
          result = result + nextElement
          println(nextElement)
          println("******************")
@@ -48,13 +48,13 @@ fun main(args: Array<String>) {
      println("result = $result")
 }
 
-val sampleInput09 = arrayListOf(
+val sampleInput09_ = arrayListOf(
     "0 3 6 9 12 15",
     "1 3 6 10 15 21",
     "10 13 16 21 30 45",
 )
 
-val realinput09 = arrayListOf(
+val realinput09_ = arrayListOf(
  "-5 0 14 35 64 120 276 742 2049 5429 13539 31751 70366 148419 300461 589269 1130567 2141638 4035732 7600527 14324252",
  "12 32 65 127 242 435 720 1091 1536 2105 3067 5179 10050 20500 40670 75413 128164 196022 260149 268767 108978",
  "26 37 57 95 169 322 641 1277 2464 4535 7933 13215 21047 32188 47461 67709 93734 126217 165617 212047 265125",
