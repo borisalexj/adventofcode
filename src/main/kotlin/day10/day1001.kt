@@ -1,6 +1,7 @@
 package day10
 
 import day05.start
+import kotlin.IllegalStateException
 
     var startPoint = Pair<Int, Int> (-1, -1)
 fun main(args: Array<String>) {
@@ -19,73 +20,121 @@ fun main(args: Array<String>) {
 
     input[y][x] = "F"
     println(input)
-    val nextX = arrayListOf(startPoint.first)
-    val nextY = arrayListOf(startPoint.second)
-    getDirections(input, -1, -1, -1, -1, x, y, tempRouteLength)
+    var nextX = x
+    var nextY = y
     println(tempRouteLength)
 //    println(iterations)
+    var old2x = -1
+    var old2y = -1
+    var oldx = -1
+    var oldy = -1
+    while (true) {
+        var newCoord = getDirections(input, old2x, old2y, oldx, oldy, nextX, nextY, tempRouteLength)
+//        println("$x $y - $oldx $oldy - $old2x $old2y")
+        old2x = oldx
+        old2y = oldy
+        oldx = nextX
+        oldy = nextY
+        nextX = newCoord.first
+        nextY = newCoord.second
+//        println("$x $y - $oldx $oldy - $old2x $old2y")
+        tempRouteLength = tempRouteLength +1
+//        if (tempRouteLength >3) break
+    }
 }
+
+// the last number befo exception plus on and divided by 2 is the answer - 14171+1 = 7086
     val result = 0
     var tempRouteLength = 0
     var iterations = 0
 
 fun getDirections(input: MutableList<MutableList<String>>,
  old2x: Int, old2y: Int, oldx:Int, oldy:Int, x:Int, y:Int, routeLength: Int) : Pair<Int, Int> {
-    if (x == old2x && y == old2y) return
+//    if (x == old2x && y == old2y) return
     if (x == startPoint.first &&  y == startPoint.second && old2x != -1 && old2y != -1) {
         println("start - ${routeLength/2}")
         if (tempRouteLength < routeLength) {
                     tempRouteLength = routeLength
 //                    println(tempRouteLength /2)
                 }
-                return
+                throw IllegalStateException("reachedStart")
     }
 
     iterations = iterations +1
 //    val tempRouteLength = routeLength
 
 val current = input[y][x]
-println("$current - $routeLength $y:$x $oldy:$oldx" )
+println("$current - $routeLength $y:$x $oldy:$oldx $old2y:$old2x:" )
     if (current == "F") {
-        if (input[y][x+1] == "-" || input[y][x+1] == "7" || input[y][x+1] == "J" || input[x+1][y] == "F")
-            getDirections(input, oldx, oldy, x, y, x+1, y, routeLength +1)
         if (input[y+1][x] == "|" || input[y+1][x] == "L" || input[y+1][x] == "J")
-            getDirections(input, oldx, oldy,  x, y,x, y+1, routeLength +1)
+            if (x != oldx || y+1 != oldy)
+                return Pair(x, y+1)
+//                getDirections(input, oldx, oldy,  x, y,x, y+1, routeLength +1)
+        if (input[y][x+1] == "-" || input[y][x+1] == "7" || input[y][x+1] == "J" || input[x+1][y] == "F")
+            if (x+1 != oldx || y != oldy)
+                return Pair(x+1, y)
+//                getDirections(input, oldx, oldy, x, y, x+1, y, routeLength +1)
     }
     else if (current == "-") {
         if (input[y][x+1] == "7" || input[y][x+1] == "J" || input[y][x+1] == "-" )
-            getDirections(input, oldx, oldy,  x, y,x+1, y, routeLength +1)
+            if (x+1 != oldx || y != oldy)
+                return Pair(x+1, y)
+//                getDirections(input, oldx, oldy,  x, y,x+1, y, routeLength +1)
         if (input[y][x-1] == "F" || input[y][x-1] == "L" || input[y][x-1] == "-" )
-            getDirections(input, oldx, oldy,  x, y,x-1, y, routeLength +1)
+            if (x-1 != oldx || y != oldy)
+                return Pair(x-1, y)
+//                getDirections(input, oldx, oldy,  x, y,x-1, y, routeLength +1)
     }
     else if (current == "|") {
+        println(input[y+1][x])
+        println(input[y-1][x])
         if (input[y+1][x] == "L" || input[y+1][x] == "J" || input[y+1][x] == "|" )
-            getDirections(input, oldx, oldy,  x, y,x, y+1, routeLength +1)
+            if (x != oldx || y+1 != oldy)
+                return Pair(x, y+1)
+//                getDirections(input, oldx, oldy,  x, y,x, y+1, routeLength +1)
         if (input[y-1][x] == "F" || input[y-1][x] == "7" || input[y-1][x] == "|" )
-            getDirections(input, oldx, oldy,  x, y,x, y-1, routeLength +1)
+            if (x != oldx || y-1 != oldy)
+                return Pair(x, y-1)
+//                getDirections(input, oldx, oldy,  x, y,x, y-1, routeLength +1)
     }
     else if (current == "L") {
         if (input[y-1][x] == "F" || input[y-1][x] == "7" || input[y-1][x] == "|" )
-            getDirections(input, oldx, oldy,  x, y,x, y-1, routeLength +1)
+            if (x != oldx || y-1 != oldy)
+                return Pair(x, y-1)
+//                getDirections(input, oldx, oldy,  x, y,x, y-1, routeLength +1)
         if (input[y][x+1] == "J" || input[y][x+1] == "7" || input[y][x+1] == "-" )
-            getDirections(input, oldx, oldy,  x, y,x+1, y, routeLength +1)
+            if (x+1 != oldx || y != oldy)
+                return Pair(x+1, y)
+//                getDirections(input, oldx, oldy,  x, y,x+1, y, routeLength +1)
     }
     else if (current == "7") {
         if (input[y+1][x] == "J" || input[y+1][x] == "L" || input[y+1][x] == "|" )
-            getDirections(input, oldx, oldy,  x, y,x, y+1, routeLength +1)
+            if (x != oldx || y+1 != oldy)
+                return Pair(x, y+1)
+//            getDirections(input, oldx, oldy,  x, y,x, y+1, routeLength +1)
         if (input[y][x-1] == "F" || input[y][x-1] == "L" || input[y][x-1] == "-" )
-            getDirections(input, oldx, oldy,  x, y,x-1, y, routeLength +1)
+            if (x-1 != oldx || y != oldy)
+                return Pair(x-1, y)
+//            getDirections(input, oldx, oldy,  x, y,x-1, y, routeLength +1)
     }
     else if (current == "J") {
 //        println(input[y-1][x])
-        if (input[y-1][x] == "F" || input[y-1][x] == "7" || input[y-1][x] == "|" )  getDirections(input, oldx, oldy,  x, y,x, y-1, routeLength +1)
-        if (input[y][x-1] == "F" || input[y][x-1] == "L" || input[y][x-1] == "-" )  getDirections(input, oldx, oldy,  x, y,x-1, y, routeLength +1)
+        if (input[y-1][x] == "F" || input[y-1][x] == "7" || input[y-1][x] == "|" )
+            if (x != oldx || y-1 != oldy)
+                            return Pair(x, y-1)
+//            getDirections(input, oldx, oldy,  x, y,x, y-1, routeLength +1)
+        if (input[y][x-1] == "F" || input[y][x-1] == "L" || input[y][x-1] == "-" )
+            if (x-1 != oldx || y != oldy)
+                            return Pair(x-1, y)
+//                            getDirections(input, oldx, oldy,  x, y,x-1, y, routeLength +1)
     } else {
         if (tempRouteLength < routeLength) {
-//            tempRouteLength = routeLength
-//            println(tempRouteLength)
+            tempRouteLength = routeLength
+            println(tempRouteLength)
+            throw IllegalStateException()
         }
     }
+    throw IllegalStateException("no way")
     }
 
 val sampleInput102 = arrayListOf(
