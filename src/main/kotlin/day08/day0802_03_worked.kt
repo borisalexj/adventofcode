@@ -53,7 +53,7 @@ fun main(args: Array<String>) {
    }
 }
 
-
+/*
 AAA
 result steps = 20221 - ZZZ
 SJA
@@ -76,6 +76,7 @@ result steps = 16897 - DPZ
 
 https://www.calculatorsoup.com/calculators/math/lcm.php
 LCM = 14,616,363,770,447
+*/
 
 //val sample08directions = "RL"
 val sample08directions323 = "LR"
