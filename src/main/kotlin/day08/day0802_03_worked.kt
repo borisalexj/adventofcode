@@ -53,29 +53,30 @@ fun main(args: Array<String>) {
    }
 }
 
+/*
+AAA
+result steps = 20221 - ZZZ
+SJA
+result steps = 13019 - FPZ
+BXA
+result steps = 19667 - CPZ
+QTA
+result steps = 14681 - MLZ
+HCA
+result steps = 18559 - MTZ
+LDA
+result steps = 16897 - DPZ
 
-//AAA
-//result steps = 20221 - ZZZ
-//SJA
-//result steps = 13019 - FPZ
-//BXA
-//result steps = 19667 - CPZ
-//QTA
-//result steps = 14681 - MLZ
-//HCA
-//result steps = 18559 - MTZ
-//LDA
-//result steps = 16897 - DPZ
-//
-//20221
-//13019
-//19667
-//14681
-//18559
-//16897
-//
-//https://www.calculatorsoup.com/calculators/math/lcm.php
-//LCM = 14,616,363,770,447
+20221
+13019
+19667
+14681
+18559
+16897
+
+https://www.calculatorsoup.com/calculators/math/lcm.php
+LCM = 14,616,363,770,447
+*/
 
 //val sample08directions = "RL"
 val sample08directions323 = "LR"
