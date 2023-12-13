@@ -14,22 +14,23 @@ fun main() {
     val parsedInput = ArrayList<Row>()
      sampleInput12_.forEach { inRow ->
          val r = Row().also {
-            it.line = inRow.split(" ")[0] // + inRow.split(" ")[0] + inRow.split(" ")[0] + inRow.split(" ")[0] + inRow.split(" ")[0]
+            it.line = inRow.split(" ")[0] + inRow.split(" ")[0] + inRow.split(" ")[0] + inRow.split(" ")[0] + inRow.split(" ")[0]
             it.numbers = ArrayList(inRow.split(" ")[1].split(",").map { it.toInt() })
-//            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
-//            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
-//            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
-//            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
+            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
+            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
+            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
+            it.numbers.addAll(inRow.split(" ")[1].split(",").map { it.toInt() })
           }
           parsedInput.add(r)
      }
-    println(parsedInput[0])
+//    println(parsedInput[0])
 //    throw IllegalStateException()
 
-    for ( row in parsedInput.subList(0,1)) { //.subList(1,2)
+    for ( row in parsedInput) { //.subList(1,2)
         println(row)
         generateAndCheck("", row)
     //          println(variants[0].split("."))
+        println("result 1202 - temp - " + result2)
     }
 
     println("result 1202 - " + result2)
@@ -42,21 +43,40 @@ var result2 = 0L
 fun generateAndCheck(line : String, row: Row) {
 //    val out = arrayListOf<String>()
 //    for (line in inp) {
-    println(row.line.length)
+//    println(row.line.length)
         for (letter in letters_) {
+            val currentLetter = row.line[line.length].toString()
+            if ((currentLetter == "#" || currentLetter == ".") &&letter != currentLetter ) continue
             val newLine = line+letter
             if (newLine.length == row.line.length) {
                 checkCondition(newLine, row)
             } else {
-                    println(newLine)
-//                if (
-//                    newLine.split(".").filter { it.isNotEmpty() }.mapIndexed { index, s ->
-//                          println("$index - $s - ${row.numbers[index]}")
-//                          Pair(index, s)
-//                       }.all { it.second.length == row.numbers[it.first] }
-//                ) {
+//                println(newLine)
+                val amountOfElements = newLine.split(".").filter { it.isNotEmpty() }.size
+//                    println("newLine - " + newLine + " | " + row.numbers.size + " | " + amountOfElements)
+//                    println(row.line.substring(newLine.length, row.line.length))
+//                    println(row.line.substring(newLine.length, row.line.length).split("").filter { it == "#" })
+//                println(newLine.split(".").filter { it.isNotEmpty() })
+                if (amountOfElements > row.numbers.size) continue
+
+                val splitted = newLine.split("").filter { it == "#" }
+                if (splitted.size > row.numbers.sum()) continue
+                if (splitted.size + row.line.substring(newLine.length, row.line.length).split("").filter { it == "#" }.size > row.numbers.sum()) continue
+//                println(newLine)
+//                println("${splitted.filter { it == "#" }.size} + (${row.line.length} - ${newLine.length}) < ${row.numbers.sum()}")
+//                println((splitted.filter { it == "#" }.size + (row.line.length - newLine.length) < row.numbers.sum()))
+                if (splitted.size + (row.line.length - newLine.length) < row.numbers.sum()) continue
+
+                if (newLine.split(".").filter { it.isNotEmpty() }.filterIndexed { index, s ->
+//                        println("$index $s ${row.numbers.getOrNull(index)}")
+                        ((s.length == row.numbers.getOrNull(index)))
+                    }                    .mapIndexed { index, s ->
+//                          println("$index - $s - ${row.numbers}")
+                          Pair(index, s)
+                       }.all { it.second.length == row.numbers.getOrNull(it.first) }
+                ) {
                     generateAndCheck(newLine, row)
-//                }
+                }
             }
         }
 //    }
@@ -82,6 +102,7 @@ val toFilter = generatedRow
                   Pair(index, s)
                }.all { it.second.length == row.numbers[it.first] }
            )) {
+//                println(generatedRow)
                 result2 = result2 +1
            }
 }
