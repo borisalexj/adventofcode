@@ -25,7 +25,7 @@ fun main(args: Array<String>) {
             it.first
         }.lastOrNull()
 
-             println(firstToReplace.toString() + " | " + lastToReplace)
+        println(firstToReplace.toString() + " | " + lastToReplace)
 
         if (firstToReplace != null) {
             lineCopy =

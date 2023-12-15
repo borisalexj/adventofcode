@@ -5,21 +5,21 @@ fun main(args: Array<String>) {
     val convertedArray = arrayListOf<String>()
     val res = arrayListOf<Int>()
 
-val globalPairsToReplace  = arrayListOf<Pair<Int,String>>()
+    val globalPairsToReplace = arrayListOf<Pair<Int, String>>()
 
 //    for (line in sampleInput0102) {
     var replacements = 0
     for (line in real01) {
         var lineCopy = line
 
-        while (digitNamesPairs.any { lineCopy.contains(it) } ) {
+        while (digitNamesPairs.any { lineCopy.contains(it) }) {
             val pairsToReplace = digitNamesPairs.map {
                 Pair(lineCopy.indexOf(it), it)
             }.filter { it.first != -1 }.sortedBy {
                 it.first
             }
 
-             println(pairsToReplace)
+            println(pairsToReplace)
 
 
             pairsToReplace[0].let {
@@ -32,13 +32,13 @@ val globalPairsToReplace  = arrayListOf<Pair<Int,String>>()
         convertedArray.add(lineCopy)
 
         val digits = lineCopy.toCharArray().filter { it.isDigit() }
-        val currRes = if (digits.size >1) {
-            (digits[0].toString() + digits[digits.size-1]).toInt()
+        val currRes = if (digits.size > 1) {
+            (digits[0].toString() + digits[digits.size - 1]).toInt()
         } else {
             (digits[0].toString() + digits[0]).toInt()
         }
         res.add(currRes)
-        println(line + " | " + lineCopy +" | "+ digits + " | " + currRes)
+        println(line + " | " + lineCopy + " | " + digits + " | " + currRes)
     }
 
 //    for (test in  convertedArray) {
@@ -66,27 +66,27 @@ val globalPairsToReplace  = arrayListOf<Pair<Int,String>>()
 
 
 val digitNamesPairs = listOf(
-"zero",
-"one",
-"two",
-"three",
-"four",
-"five",
-"six",
-"seven",
-"eight",
-"nine",
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
 )
 
 
 val sampleInput0102 = listOf(
-"two1nine",
-"eightwothree",
-"abcone2threexyz",
-"xtwone3four",
-"4nineeightseven2",
-"zoneight234",
-"7pqrstsixteen",
+    "two1nine",
+    "eightwothree",
+    "abcone2threexyz",
+    "xtwone3four",
+    "4nineeightseven2",
+    "zoneight234",
+    "7pqrstsixteen",
 )
 //--- Part Two ---
 //
