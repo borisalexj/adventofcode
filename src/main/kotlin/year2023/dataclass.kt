@@ -12,7 +12,7 @@ fun main(agrs: Array<String>) {
     println(firstObject.equals(secondObject)) // Output: true}
 }
 
-    class Three(val x: Int, val y: Int) : SealedClass()
+class Three(val x: Int, val y: Int) : SealedClass()
 sealed class SealedClass {
     class One(val value: Int) : SealedClass()
     class Two(val x: Int, val y: Int) : SealedClass()
