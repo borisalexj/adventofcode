@@ -39,10 +39,6 @@ fun main() {
                  }
                  println(mapped2)
 
-                 val mapped3 = mapped2.mapIndexed { index, i ->
-                                           ints[index] - (ints.getOrNull(index + 1) ?: ints[index])
-                                        }.take(ints.size -1)
-
                  if (mapped2.any { checker(mapToDifferences(it)) }) {
                      println("!!!!!!!!!!!!!!!!!!!! - $reportIndex")
                      safeReports.add(reportIndex)
