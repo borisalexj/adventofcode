@@ -2,10 +2,9 @@ package year2024
 
 import java.io.BufferedReader
 import java.io.File
-import java.io.FileWriter
 
 fun main() {
-    val pairs = ArrayList<Pair<Int,Int>>()
+    val pairs = ArrayList<Pair<Int, Int>>()
 
 //val fileName = "example.txt"
 //val content = "This is the content of the text file."
@@ -23,21 +22,21 @@ fun main() {
         if (it[0] == '(') {
             if (it.subSequence(1, it.length).contains(')')) {
                 if (it.contains(",") && (
-                    it.indexOf (",") > it.indexOf("(") &&
-                        it.indexOf(",") < it.indexOf(")")
-                        )
-                    ) {
-                                          println(it)
-                                          val first = it.split(',')[0].split('(')[1]
-                                          val second = it.split(',')[1].split(')')[0]
-                                          println("$first --- $second")
+                            it.indexOf(",") > it.indexOf("(") &&
+                                    it.indexOf(",") < it.indexOf(")")
+                            )
+                ) {
+                    println(it)
+                    val first = it.split(',')[0].split('(')[1]
+                    val second = it.split(',')[1].split(')')[0]
+                    println("$first --- $second")
 //                                          first.toIntOrNull()
-                                          pairs.add(Pair(first.toIntOrNull() ?:0, second.toIntOrNull() ?: 0))
-                                              }
+                    pairs.add(Pair(first.toIntOrNull() ?: 0, second.toIntOrNull() ?: 0))
+                }
             }
         }
-     }
-     pairs.map { it.first * it.second }.sum().let { println(it) }
+    }
+    pairs.map { it.first * it.second }.sum().let { println(it) }
 }
 
 val sampleData03 =

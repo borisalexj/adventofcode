@@ -1,21 +1,18 @@
 package year2024
 
-import kotlin.math.abs
-
 fun main() {
-        val start = System.currentTimeMillis()
+    val start = System.currentTimeMillis()
     val parsedInput =
         realInput01.map {
             Pair(Item(it[0], false), Item(it[1], false))
-         }
+        }
 //    sampleInput01.forEach { println(it) }
 //    parsedInput.forEach { println(it) }
 
     parsedInput.map { leftNumber ->
         parsedInput.count { it.second.number == leftNumber.first.number } * leftNumber.first.number
 
-     }.sum().let { println(it) }
-
+    }.sum().let { println(it) }
 
 
 //    println("result - ${res}")

@@ -26,40 +26,40 @@ fun main() {
 //         println(mapped.all {it >0})
 //         println(mapped.all { it<0 })
 
-         if (checker(mapped)) {
-             safeReports.add(reportIndex)
-         } else {
-             println("$reportIndex - $ints")
-                val mapped2 = ints.mapIndexed { index, i ->
-                    println("$index - $i - ${ints}")
-                    val outList = arrayListOf<Int>()
-                    outList.addAll(ints)
-                    outList.removeAt(index)
-                    outList
-                 }
-                 println(mapped2)
+        if (checker(mapped)) {
+            safeReports.add(reportIndex)
+        } else {
+            println("$reportIndex - $ints")
+            val mapped2 = ints.mapIndexed { index, i ->
+                println("$index - $i - ${ints}")
+                val outList = arrayListOf<Int>()
+                outList.addAll(ints)
+                outList.removeAt(index)
+                outList
+            }
+            println(mapped2)
 
-                 if (mapped2.any { checker(mapToDifferences(it)) }) {
-                     println("!!!!!!!!!!!!!!!!!!!! - $reportIndex")
-                     safeReports.add(reportIndex)
-                 }
-         }
-     }
-     println(safeReports)
-     println(safeReports.size)
+            if (mapped2.any { checker(mapToDifferences(it)) }) {
+                println("!!!!!!!!!!!!!!!!!!!! - $reportIndex")
+                safeReports.add(reportIndex)
+            }
+        }
+    }
+    println(safeReports)
+    println(safeReports.size)
 }
 
 fun checker(mapped: List<Int>): Boolean {
     return (mapped.all { abs(it) < 4 } &&
-                    (mapped.all {it >0} || mapped.all { it<0 }
-                            )
-                        )
+            (mapped.all { it > 0 } || mapped.all { it < 0 }
+                    )
+            )
 }
 
-fun mapToDifferences(ints: List<Int>):List<Int> {
+fun mapToDifferences(ints: List<Int>): List<Int> {
     return ints.mapIndexed { index, i ->
-                       ints[index] - (ints.getOrNull(index + 1) ?: ints[index])
-                    }.take(ints.size -1)
+        ints[index] - (ints.getOrNull(index + 1) ?: ints[index])
+    }.take(ints.size - 1)
 }
 
 //val sampleInput02 = arrayListOf(
