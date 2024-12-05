@@ -1,7 +1,5 @@
 package year2024
 
-import year2023.day02.parseInput
-
 fun main() {
     val parsedInput = realInput04.map {it.split("").filter{it.isNotEmpty()}}
     parsedInput.forEach { println(it) }
