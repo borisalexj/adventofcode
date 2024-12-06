@@ -1,6 +1,12 @@
 package year2024
 
+import java.io.BufferedReader
+import java.io.File
+
 fun main() {
+//        val bufferedReader: BufferedReader = File("input06ros.txt").bufferedReader()
+//    val ros = bufferedReader.use { it.readLines() }
+//    val parsedInput = ros.map { it.split("").filter { it.isNotEmpty()}.toMutableList() }.toMutableList()
 //    val parsedInput = sampleInput06.map { it.split("").filter { it.isNotEmpty()}.toMutableList() }.toMutableList()
     val parsedInput = realInput06.map { it.split("").filter { it.isNotEmpty() }.toMutableList() }.toMutableList()
 //    parsedInput.forEach { println(it) }
@@ -19,7 +25,11 @@ fun day06Part01(parsedInput: MutableList<MutableList<String>>): Set<Pair<Int, In
 
     while (true) {
         parsedInput[y][x] = "X"
-        if (parsedInput[y + directionY][x + directionX] == "#") {
+//        println("--------------------------")
+//        parsedInput.forEach { println(it) }
+        val newY = y + directionY
+        val newX = x + directionX
+        if (parsedInput[newY][newX] == "#") {
             if (directionY == -1) {
                 directionY = 0
                 directionX = +1
@@ -35,7 +45,26 @@ fun day06Part01(parsedInput: MutableList<MutableList<String>>): Set<Pair<Int, In
             } else {
                 throw IllegalStateException()
             }
+//            if (parsedInput[newY+directionY][newX+directionX] == "#") {
+//                        if (directionY == -1) {
+//                            directionY = 0
+//                            directionX = +1
+//                        } else if (directionX == +1) {
+//                            directionX = 0
+//                            directionY = +1
+//                        } else if (directionY == +1) {
+//                            directionY = 0
+//                            directionX = -1
+//                        } else if (directionX == -1) {
+//                            directionX = 0
+//                            directionY = -1
+//                        } else {
+//                            throw IllegalStateException()
+//                        }
+//                    }
         }
+
+
         y = y + directionY
         x = x + directionX
         visitedPositions.add(Pair(y, x))
@@ -44,14 +73,13 @@ fun day06Part01(parsedInput: MutableList<MutableList<String>>): Set<Pair<Int, In
 
         if (x == 0 || y == 0 || x + directionX > parsedInput[0].size - 1 || y + directionY > parsedInput.size - 1) {
             parsedInput[y][x] = "X"
-
             break
         }
 //        println("-------------")
 //        parsedInput.forEach { println(it) }
     }
 
-    parsedInput.map { it.filter { it == "X" }.size }.sum().let { println(it) }
+    parsedInput.map { it.filter { it == "X" }.size }.sum().let { println("part1 - $it") }
     return visitedPositions.toSet()
 }
 

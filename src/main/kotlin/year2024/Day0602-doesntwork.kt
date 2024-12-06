@@ -1,6 +1,10 @@
 package year2024
 
 fun main() {
+//            val bufferedReader: BufferedReader = File("input06ros.txt").bufferedReader()
+//        val ros = bufferedReader.use { it.readLines() }
+//        val parsedInput = ros.map { it.split("").filter { it.isNotEmpty()}.toMutableList() }.toMutableList()
+
 //    val parsedInput = sampleInput06.map { it.split("").filter { it.isNotEmpty()}.toMutableList() }.toMutableList()
     val parsedInput = realInput06.map { it.split("").filter { it.isNotEmpty() }.toMutableList() }.toMutableList()
 //    parsedInput.forEach { println(it) }

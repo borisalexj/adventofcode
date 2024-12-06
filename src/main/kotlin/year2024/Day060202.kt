@@ -1,11 +1,20 @@
 package year2024
 
+import java.io.BufferedReader
+import java.io.File
+
 fun main() {
 //    var parsedInput = sampleInput06.map { it.split("").filter { it.isNotEmpty() }.toMutableList() }.toMutableList()
 //    var parsedInput2 = sampleInput06.map { it.split("").filter { it.isNotEmpty() }.toMutableList() }.toMutableList()
     val parsedInput = realInput06.map { it.split("").filter { it.isNotEmpty() }.toMutableList() }.toMutableList()
     var parsedInput2 = realInput06.map { it.split("").filter { it.isNotEmpty() }.toMutableList() }.toMutableList()
-//    parsedInput.forEach { println(it) }
+
+//            val bufferedReader: BufferedReader = File("input06ros.txt").bufferedReader()
+//        val ros = bufferedReader.use { it.readLines() }
+//        val parsedInput = ros.map { it.split("").filter { it.isNotEmpty()}.toMutableList() }.toMutableList()
+//        val parsedInput2 = ros.map { it.split("").filter { it.isNotEmpty()}.toMutableList() }.toMutableList()
+
+    //    parsedInput.forEach { println(it) }
 
     var y = parsedInput.indexOfFirst { it.contains("^") }
     var x = parsedInput.getOrNull(y)!!.indexOfFirst { it == "^" }
@@ -41,9 +50,10 @@ fun main() {
 //                }
 //                val encounter = stuckEncounter.getOrDefault("${y},${x},$directionY,$directionX",0)
 //                stuckEncounter.put("${y},${x},$directionY,$directionX",encounter +1)
-
-            if (parsedInput[y + directionY][x + directionX] == "#" ||
-                (y + directionY == stuckY && x + directionX == stuckX)
+        val newY = y + directionY
+        val newX = x + directionX
+            if (parsedInput[newY][newX] == "#" ||
+                (newY == stuckY && newX == stuckX)
             ) {
                 val encounter =
                     stuckEncounterMap.getOrDefault("${y + directionY},${x + directionX},$directionY,$directionX", 0)
@@ -64,12 +74,33 @@ fun main() {
                 } else {
                     throw IllegalStateException()
                 }
+
+                 if (parsedInput[y+directionY][x+directionX] == "#" ||
+                    (y+directionY == stuckY && x+directionX == stuckX)
+
+                     ) {
+                                        if (directionY == -1) {
+                                            directionY = 0
+                                            directionX = +1
+                                        } else if (directionX == +1) {
+                                            directionX = 0
+                                            directionY = +1
+                                        } else if (directionY == +1) {
+                                            directionY = 0
+                                            directionX = -1
+                                        } else if (directionX == -1) {
+                                            directionX = 0
+                                            directionY = -1
+                                        } else {
+                                            throw IllegalStateException()
+                                        }
+                                    }
             }
 //                if ( (y+directionY == stuckY && x+directionX == stuckX)) {
 //                    stuckEncounter = stuckEncounter + 1
 //                }
 
-            if (stuckEncounterMap.values.any { it > 50 }) {
+            if (stuckEncounterMap.values.any { it > 2 }) {
 //                    println("encounter $stuckY $stuckX")
                 stuckRoutes = stuckRoutes + 1
                 stuckPoints.add(Pair(stuckY, stuckX))
