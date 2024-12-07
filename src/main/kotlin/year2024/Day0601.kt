@@ -1,8 +1,5 @@
 package year2024
 
-import java.io.BufferedReader
-import java.io.File
-
 fun main() {
 //        val bufferedReader: BufferedReader = File("input06ros.txt").bufferedReader()
 //    val ros = bufferedReader.use { it.readLines() }
