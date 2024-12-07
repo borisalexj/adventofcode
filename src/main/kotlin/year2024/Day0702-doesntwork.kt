@@ -3,11 +3,11 @@ package year2024
 import java.math.BigInteger
 
 fun main() {
-//    val expectedNumbers = sampleInput07.map { it.split(":")[0].toBigInteger() }
-//    val inputValues = sampleInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
+    val expectedNumbers = sampleInput07.map { it.split(":")[0].toBigInteger() }
+    val inputValues = sampleInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
 
-    val expectedNumbers = realInput07.map { it.split(":")[0].toBigInteger() }
-    val inputValues = realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
+//    val expectedNumbers = realInput07.map { it.split(":")[0].toBigInteger() }
+//    val inputValues = realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
 
 //    println(numbers)
 //    println(values)
@@ -26,7 +26,7 @@ fun main() {
         for (operationList in allOps) {
             var res = 0.toBigInteger()
             values.forEachIndexed { valueIndex, value ->
-                if (res == 0.toBigInteger()) {
+                if (res.equals(0.toBigInteger())) {
                     res = value
                 } else {
                     val op = operationList.split("").filter { it.isNotEmpty() }[valueIndex-1]
@@ -41,7 +41,8 @@ fun main() {
                     } else throw IllegalStateException()
                 }
             }
-            if (res == expected)  {
+            if (res > expected) continue
+            if (res.equals(expected))  {
                 println("$res  ==  $operationList")
                 if (res > Long.MAX_VALUE.toBigInteger()) {
                     println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! $res")
