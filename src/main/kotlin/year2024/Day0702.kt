@@ -62,6 +62,7 @@ fun main() {
 }
 //9223372036854775807
 //44841372855122
+//2501605301465
 fun produceListsOfOperations2(size:Int, input :ArrayList<String> = arrayListOf("")): ArrayList<String> {
     var result = arrayListOf<String>()
     for (o in operations02) {
