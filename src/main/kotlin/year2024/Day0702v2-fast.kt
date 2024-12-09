@@ -3,6 +3,7 @@ package year2024
 import java.util.ArrayList
 
 fun main() {
+    val start = System.currentTimeMillis()
 //    val numbers = sampleInput07.map { it.split(":")[0].toLong() }
 //    val values = sampleInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toLong() } }
 
@@ -27,6 +28,7 @@ fun main() {
 
     println("result:")
     println(result.values.sum())
+    println("time  - ${System.currentTimeMillis() - start}")
 }
 
 fun recursion(expectedNumberIndex: Long, expectedNumber: Long, operations: ArrayList<String>, values: List<Long>, number: Long, index: Int) {

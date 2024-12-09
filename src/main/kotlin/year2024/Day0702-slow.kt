@@ -3,6 +3,7 @@ package year2024
 import java.math.BigInteger
 
 fun main() {
+    val start = System.currentTimeMillis()
     val expectedNumbers =  realInput07.map { it.split(":")[0].toBigInteger() }
     val inputValues = realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
 
@@ -14,7 +15,7 @@ fun main() {
 
 //    BigInteger()
 
-    val correctNumbers = mutableSetOf<BigInteger>()
+    val correctNumbers = mutableMapOf<Int, BigInteger>()
 
 //    expectedNumbers.take(3).forEachIndexed { numberIndex, expected ->
     expectedNumbers.forEachIndexed { numberIndex, expected ->
@@ -43,23 +44,24 @@ fun main() {
             }
             if (res > expected) continue
             if (res.equals(expected))  {
-                println("$res  ==  $operationList")
+//                println("$res  ==  $operationList")
                 if (res > Long.MAX_VALUE.toBigInteger()) {
                     println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! $res")
                 }
-                correctNumbers.add(res)
+                correctNumbers[numberIndex]  = res
             }
 
         }
 
     }
     println("-----------------------")
-    correctNumbers.toSet().forEach { println(it) }
-    println("-----------------------")
-    println(correctNumbers.size)
-    println(correctNumbers.toSet().size)
-    println(correctNumbers.toSet().sumOf {it})
+//    correctNumbers.toSet().forEach { println(it) }
+//    println("-----------------------")
+//    println(correctNumbers.size)
+//    println(correctNumbers.toSet().size)
+    println(correctNumbers.values.sumOf { it })
 //    println(produceListsOfOperations(3))
+    println("time  - ${System.currentTimeMillis() - start}")
 }
 //9223372036854775807
 //44841372855122
