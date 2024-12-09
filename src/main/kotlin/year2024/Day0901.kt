@@ -15,7 +15,7 @@ fun main() {
     parsed.mapIndexed { index, s ->
         if (index % 2 == 0) { // парне
             output.addAll(
-                (1..s.toInt()).map { (index/2).toString() }
+                (1..s.toInt()).map { (index / 2).toString() }
             )
 //                .repeat().split("").filter { it.isNotEmpty() })
         } else { //  непарне
@@ -31,11 +31,11 @@ fun main() {
 
 //    println(output)
 
-    fun findFirstPoint(inp : ArrayList<String>) : Int  {
+    fun findFirstPoint(inp: ArrayList<String>): Int {
         return inp.indexOf(".")
     }
 
-    fun findLastDigit(inp : ArrayList<String>) : Int  {
+    fun findLastDigit(inp: ArrayList<String>): Int {
         return inp.indexOfLast { it != "." }
     }
 

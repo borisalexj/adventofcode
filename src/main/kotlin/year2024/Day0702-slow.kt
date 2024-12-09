@@ -4,8 +4,9 @@ import java.math.BigInteger
 
 fun main() {
     val start = System.currentTimeMillis()
-    val expectedNumbers =  realInput07.map { it.split(":")[0].toBigInteger() }
-    val inputValues = realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
+    val expectedNumbers = realInput07.map { it.split(":")[0].toBigInteger() }
+    val inputValues =
+        realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
 
 //    val expectedNumbers = realInput07.map { it.split(":")[0].toBigInteger() }
 //    val inputValues = realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
@@ -20,7 +21,7 @@ fun main() {
 //    expectedNumbers.take(3).forEachIndexed { numberIndex, expected ->
     expectedNumbers.forEachIndexed { numberIndex, expected ->
         val values = inputValues[numberIndex]
-        val allOps = produceListsOfOperations2(values.size-1)
+        val allOps = produceListsOfOperations2(values.size - 1)
 //        println("$numberIndex of ${ExpectedNumbers.size} - $expected -- $values, ${allOps.size}")
         println("$numberIndex of ${expectedNumbers.size} - $expected -- $values, ${allOps.size}")
 //        allOps.forEach { println(it) }
@@ -30,7 +31,7 @@ fun main() {
                 if (res.equals(0.toBigInteger())) {
                     res = value
                 } else {
-                    val op = operationList.split("").filter { it.isNotEmpty() }[valueIndex-1]
+                    val op = operationList.split("").filter { it.isNotEmpty() }[valueIndex - 1]
 //                    println("$op, $value")
                     if (op == "+") {
                         res = res.add(value)
@@ -43,12 +44,12 @@ fun main() {
                 }
             }
             if (res > expected) continue
-            if (res.equals(expected))  {
+            if (res.equals(expected)) {
 //                println("$res  ==  $operationList")
                 if (res > Long.MAX_VALUE.toBigInteger()) {
                     println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! $res")
                 }
-                correctNumbers[numberIndex]  = res
+                correctNumbers[numberIndex] = res
             }
 
         }
@@ -63,14 +64,15 @@ fun main() {
 //    println(produceListsOfOperations(3))
     println("time  - ${System.currentTimeMillis() - start}")
 }
+
 //9223372036854775807
 //44841372855122
 //2501605301465
-fun produceListsOfOperations2(size:Int, input :ArrayList<String> = arrayListOf("")): ArrayList<String> {
+fun produceListsOfOperations2(size: Int, input: ArrayList<String> = arrayListOf("")): ArrayList<String> {
     var result = arrayListOf<String>()
     for (o in operations02) {
         for (i in input) {
-            result.add(i+o)
+            result.add(i + o)
         }
     }
     if (result[0].length < size) {

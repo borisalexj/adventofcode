@@ -15,7 +15,7 @@ fun main() {
     parsed.mapIndexed { index, s ->
         if (index % 2 == 0) { // парне
             output.addAll(
-                (1..s.toInt()).map { (index/2).toString() }
+                (1..s.toInt()).map { (index / 2).toString() }
             )
 //                .repeat().split("").filter { it.isNotEmpty() })
         } else { //  непарне
@@ -34,7 +34,7 @@ fun main() {
     fun separateToFiles(arr: List<String>): ArrayList<ArrayList<String>> {
         val result = arrayListOf<ArrayList<String>>()
         var file = arrayListOf<String>()
-        for (i in 0..arr.size-1) {
+        for (i in 0..arr.size - 1) {
             if (file.size == 0) {
                 file.add(arr[i])
             } else if (file.last() == arr[i]) {
@@ -49,6 +49,7 @@ fun main() {
         return result
 
     }
+
     var separatedByFiles = separateToFiles(output)
 
     separatedByFiles.forEach { println(it) }
@@ -64,23 +65,28 @@ fun main() {
 //        return inp.indexOfLast { it.all { it != "."} && it.size <= size }
 //    }
 
- fun findFirstSpace(inp : ArrayList<ArrayList<String>>, size: Int) : Int  {
+    fun findFirstSpace(inp: ArrayList<ArrayList<String>>, size: Int): Int {
         return inp.indexOfFirst {
             it.all { it == "." } && it.size >= size
         }
     }
 
-    fun findLastFile(inp : MutableList<ArrayList<String>>) : Int  {
-        return inp.indexOfLast { it.all { it != "."} }
+    fun findLastFile(inp: MutableList<ArrayList<String>>): Int {
+        return inp.indexOfLast { it.all { it != "." } }
     }
 
     var c = 0
     var processedFileIndex = 0
     val processedDigits = arrayListOf<String>()
 
-    while (c<10) {
+    while (c < 10) {
         separatedByFiles.flatten().joinToString("").let { println(it) }
-        val right = findLastFile(separatedByFiles.subList(0, if (processedFileIndex == 0) separatedByFiles.size else processedFileIndex -1))
+        val right = findLastFile(
+            separatedByFiles.subList(
+                0,
+                if (processedFileIndex == 0) separatedByFiles.size else processedFileIndex - 1
+            )
+        )
         processedFileIndex = right
         val file = separatedByFiles[right]
         println(file)
@@ -91,7 +97,7 @@ fun main() {
         println(space)
         if (processedDigits.any { it == file[0] }) continue
 
-        for (i in 0.. file.size-1) {
+        for (i in 0..file.size - 1) {
             val digit = file[i]
             val dot = space[i]
             file[i] = dot
@@ -102,10 +108,11 @@ fun main() {
         separatedByFiles = separateToFiles(separatedByFiles.flatten())
 
         if (separatedByFiles.filter {
-            it.all { it == "." }}.size == 2
+                it.all { it == "." }
+            }.size == 2
         ) break
 
-        c = c+1
+        c = c + 1
 
     }
 

@@ -1,6 +1,5 @@
 package year2024
 
-import year2023.day02.parseInput
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -45,30 +44,30 @@ fun main() {
                 antiCoordinates.add(coord2)
                 val a1 = (1..max(parsed.size, parsed[0].size)).map { multiplier ->
                     Pair(
-                    if (a1DeltaY < 0) {
-                        min(coord1.first, coord2.first) + a1DeltaY*multiplier
-                    } else {
-                        max(coord1.first, coord2.first) + a1DeltaY*multiplier
-                    },
-                    if (a1DeltaX < 0) {
-                        min(coord1.second, coord2.second) + a1DeltaX*multiplier
-                    } else {
-                        max(coord1.second, coord2.second) + a1DeltaX*multiplier
-                    }
-                )
+                        if (a1DeltaY < 0) {
+                            min(coord1.first, coord2.first) + a1DeltaY * multiplier
+                        } else {
+                            max(coord1.first, coord2.first) + a1DeltaY * multiplier
+                        },
+                        if (a1DeltaX < 0) {
+                            min(coord1.second, coord2.second) + a1DeltaX * multiplier
+                        } else {
+                            max(coord1.second, coord2.second) + a1DeltaX * multiplier
+                        }
+                    )
                 }
                 antiCoordinates.addAll(a1)
                 val a2 = (1..max(parsed.size, parsed[0].size)).map { multiplier ->
                     Pair(
                         if (a1DeltaY < 0) {
-                            max(coord1.first, coord2.first) + abs(a1DeltaY)*multiplier
+                            max(coord1.first, coord2.first) + abs(a1DeltaY) * multiplier
                         } else {
-                            min(coord1.first, coord2.first) - a1DeltaY*multiplier
+                            min(coord1.first, coord2.first) - a1DeltaY * multiplier
                         },
                         if (a1DeltaX < 0) {
-                            max(coord1.second, coord2.second) + abs(a1DeltaX)*multiplier
+                            max(coord1.second, coord2.second) + abs(a1DeltaX) * multiplier
                         } else {
-                            min(coord1.second, coord2.second) - a1DeltaX*multiplier
+                            min(coord1.second, coord2.second) - a1DeltaX * multiplier
                         }
                     )
                 }
@@ -114,15 +113,15 @@ fun main() {
 
 val sample08T = arrayListOf(
     "T....#....",
-"...T......",
-".T....#...",
-".........#",
-"..#.......",
-"..........",
-"...#......",
-"..........",
-"....#.....",
-"..........",
+    "...T......",
+    ".T....#...",
+    ".........#",
+    "..#.......",
+    "..........",
+    "...#......",
+    "..........",
+    "....#.....",
+    "..........",
 )
 
 ////(0, 6)
