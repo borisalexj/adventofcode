@@ -3,8 +3,8 @@ package year2024
 import java.math.BigInteger
 
 fun main() {
-    val expectedNumbers = sampleInput07.map { it.split(":")[0].toBigInteger() }
-    val inputValues = sampleInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
+    val expectedNumbers =  realInput07.map { it.split(":")[0].toBigInteger() }
+    val inputValues = realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
 
 //    val expectedNumbers = realInput07.map { it.split(":")[0].toBigInteger() }
 //    val inputValues = realInput07.map { it.split(":")[1] }.map { it.split(" ").filter { it.isNotEmpty() }.map { it.toBigInteger() } }
