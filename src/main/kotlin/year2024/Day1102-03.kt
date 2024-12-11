@@ -17,7 +17,7 @@ fun main() {
     res.putAll(parsed)
 
 //    val sums = arrayListOf<Long>()
-    var newRes = mutableMapOf<Long, Long>()
+//    var newRes = mutableMapOf<Long, Long>()
 //    newRes.putAll(parsed)
 
 
