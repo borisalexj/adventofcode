@@ -56,7 +56,7 @@ fun main() {
         }
 //    }
     println(res)
-    println("answer 1 - ${res.values.sum()}")
+    println("answer 2 - ${res.values.sum()}")
 //    println(res.sum())
 }
 
