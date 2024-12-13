@@ -2,13 +2,14 @@ package year2024
 
 import java.io.BufferedReader
 import java.io.File
+import java.lang.IllegalStateException
 
 fun main() {
 
     val bufferedReader: BufferedReader = File("input13.txt").bufferedReader()
     val inputString = bufferedReader.use { it.readLines() }
     val input = inputString.filter { it.isNotEmpty() }.toMutableList()
-//    val input = sampleInput13
+//    val input = sampleInput132
 //    println(input)
 
     val parsedInput = arrayListOf<Machine>()
@@ -24,7 +25,7 @@ fun main() {
         val machine = Machine(
             Pair(ax.toLong(),ay.toLong()),
             Pair(bx.toLong(),by.toLong()),
-            Pair(px.toLong(),py.toLong()),
+            Pair(px.toLong() + 10000000000000,py.toLong() + 10000000000000),
         )
         parsedInput.add(machine)
     }
@@ -43,20 +44,16 @@ parsedInput.forEach {
 
         val resX = arrayListOf<Pair<Long,Long>>()
 
-//        val priceFor1Ax = aCost.toDouble() / ax.toDouble()
-//        val priceFor1Bx = bCost.toDouble() / bx.toDouble()
-//        val priceRatio = priceFor1Bx / priceFor1Ax
-//        val invertedPriceRatio = 1.toDouble() / priceRatio
-
-        val volumeRatio = bx.toDouble() / ax.toDouble()
-//        val invertedVolumeRatio
-//
-//        val costRatio -
+//        val priceRatio = bCost.toDouble() / aCost.toDouble()
+//        val volumeRatio = bx.toDouble() / ax.toDouble()
+//        val totalRatio = priceRatio * volumeRatio
+//        println(totalRatio)
 
         val maxAx = px/ax
         val minAx = 0
         for (a in maxAx downTo minAx) {
-            val maxBx = px/bx
+            val maxBx = (px - a*ax)/bx
+//            val maxBx = px/bx
             val minBx = 0
             for (b in maxBx downTo  minBx) {
 //                if (a ==80                 && b == 40                    ) {
@@ -73,7 +70,7 @@ parsedInput.forEach {
          }?.let {
              println("min X - $it")
              println("${it.first.toDouble() / it.second.toDouble()} - ${ax.toDouble()/bx.toDouble()} - ${aCost.toDouble()/bCost.toDouble()}")
-          } ?: { println("no min x")}
+          } ?: run { println("no min x")}
 
         val ay = it.buttonA.second
         val by = it.buttonB.second
@@ -81,8 +78,12 @@ parsedInput.forEach {
 
         val resY = arrayListOf<Pair<Long,Long>>()
 
-        for (a in py/ay downTo 0) {
-            for (b in py/by downTo  0) {
+        val maxAy = py/ay
+        val minAy = 0
+        for (a in maxAy downTo minAy) {
+            val maxBy = (px - a*ax)/bx
+//            val maxBy = py/by
+            for (b in maxBy downTo  0) {
 //                if (a ==80                 && b == 40                    ) {
 //                    println("$a $b  - ${ay*a + by*b} - $py")
 //                }
@@ -116,16 +117,16 @@ parsedInput.forEach {
 
 }
 
-val aCost = 3
-val bCost = 1
-
-data class Machine(
-    val buttonA : Pair<Long, Long>,
-    val buttonB : Pair<Long, Long>,
-    val prize : Pair<Long, Long>,
-)
-
-val sampleInput13 = arrayListOf (
+//val aCost = 3
+//val bCost = 1
+//
+//data class Machine(
+//    val buttonA : Pair<Int, Int>,
+//    val buttonB : Pair<Int, Int>,
+//    val prize : Pair<Int, Int>,
+//)
+//
+val sampleInput132 = arrayListOf (
     "Button A: X+94, Y+34",
     "Button B: X+22, Y+67",
     "Prize: X=8400, Y=5400",
