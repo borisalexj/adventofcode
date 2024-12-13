@@ -112,22 +112,11 @@ fun main() {
                 Triple(Pair(+1,0),Pair(0,-1), Pair(+1,-1)),
             )
             for (point in coords) {
-//                val top = (if (coords.contains(Pair(point.first - 1, point.second))) 0 else 1)
-//                val bottom =(if (coords.contains(Pair(point.first + 1, point.second))) 0 else 1)
-//                val left = (if (coords.contains(Pair(point.first, point.second - 1))) 0 else 1)
-//                val right = (if (coords.contains(Pair(point.first, point.second + 1))) 0 else 1)
-//                val top = if (coords.any { it.first == point.first - 1 && it.second == point.second }) 0 else 1
-//                val bottom = if (coords.any { it.first == point.first + 1 && it.second == point.second }) 0 else 1
-//                val left = if (coords.any { it.first == point.first && it.second == point.second - 1 }) 0 else 1
-//                val right = if (coords.any { it.first == point.first && it.second == point.second + 1 }) 0 else 1
-                // holes
-//                val internal = arrayListOf(0)
                 val internal = internalPairs.map {
                     val v1 = coords.contains(Pair(point.first + it.first.first, point.second + it.first.second))
                     val v2 = coords.contains(Pair(point.first + it.second.first, point.second + it.second.second))
                     if (
                     !coords.contains(Pair(point.first + it.first.first, point.second + it.first.second)) &&
-//                    coords.contains(Pair(point.first + it.second.first, point.second + it.second.second)) &&
                     coords.contains(Pair(point.first + it.third.first, point.second + it.third.second))
                     ) 1 else 0
                 }
@@ -141,11 +130,8 @@ fun main() {
                         )
                     ) 1 else 0
                 }
-//                println("${internal.sum()} - ${external.sum()}")
                 perimeter = perimeter + internal.sum() + external.sum() // + top + bottom + left + right
             }
-//                .sum().let { perimeter ->
-//                println("$letter - $area - $perimeter - $coords")
 
 
             val price = area.toLong() * perimeter.toLong()
