@@ -43,22 +43,8 @@ parsedInput.forEach {
 
         val resX = arrayListOf<Pair<Long,Long>>()
 
-//        val priceFor1Ax = aCost.toDouble() / ax.toDouble()
-//        val priceFor1Bx = bCost.toDouble() / bx.toDouble()
-//        val priceRatio = priceFor1Bx / priceFor1Ax
-//        val invertedPriceRatio = 1.toDouble() / priceRatio
-
-        val volumeRatio = bx.toDouble() / ax.toDouble()
-//        val invertedVolumeRatio
-//
-//        val costRatio -
-
-        val maxAx = px/ax
-        val minAx = 0
-        for (a in maxAx downTo minAx) {
-            val maxBx = px/bx
-            val minBx = 0
-            for (b in maxBx downTo  minBx) {
+        for (a in px/ax downTo 0) {
+            for (b in px/bx downTo  0) {
 //                if (a ==80                 && b == 40                    ) {
 //                    println("$a $b  - ${ax*a + bx*b} - $px")
 //                }
@@ -112,7 +98,7 @@ parsedInput.forEach {
 
      println("----------------------")
      println("res 1 = ${mins.sum()}") // 35255
-     println("loopCounter = ${loopCounter}")
+     println("loopCounter = ${loopCounter}") // 52 628 427
 
 }
 

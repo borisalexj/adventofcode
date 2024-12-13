@@ -112,8 +112,8 @@ parsedInput.forEach {
      }
 
      println("----------------------")
-     println("res 1 = ${mins.sum()}") // 35255
-     println("loopCounter = ${loopCounter}")
+     println("res 1 = ${mins.sum()}") // 35 255
+     println("loopCounter = ${loopCounter}") // 248 140
 
 }
 
