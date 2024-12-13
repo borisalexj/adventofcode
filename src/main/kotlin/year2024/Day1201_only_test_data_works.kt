@@ -1,6 +1,5 @@
 package year2024
 
-import kotlin.coroutines.suspendCoroutine
 import kotlin.math.abs
 
 fun main() {
@@ -146,20 +145,20 @@ fun main() {
 
 }
 
-val sampleInput12 = arrayListOf(
+val sampleInput12 = arrayListOf( // 140
     "AAAA",
             "BBCD",
             "BBCC",
             "EEEC",
 )
-val sampleInput122 = arrayListOf(
+val sampleInput122 = arrayListOf( // 772
     "OOOOO",
             "OXOXO",
             "OOOOO",
             "OXOXO",
             "OOOOO",
 )
-val sampleInput123 = arrayListOf(
+val sampleInput123 = arrayListOf( // 1930
     "RRRRIICCFF",
             "RRRRIICCCF",
             "VVRRRCCFFF",
