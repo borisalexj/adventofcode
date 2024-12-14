@@ -2,14 +2,18 @@ package year2024
 
 import java.io.BufferedReader
 import java.io.File
+import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToLong
 
+// 10 000 000 008 400
 fun main() {
-
+    // https://ua.onlinemschool.com/math/library/analytic_geometry/lines_intersection/
     val bufferedReader: BufferedReader = File("input13.txt").bufferedReader()
     val inputString = bufferedReader.use { it.readLines() }
-//    val input = inputString.filter { it.isNotEmpty() }.toMutableList()
-    val input = sampleInput13
+    val input = inputString.filter { it.isNotEmpty() }.toMutableList()
+//    val input = sampleInput13
 //    println(input)
 
     val parsedInput = arrayListOf<Machine>()
@@ -37,6 +41,16 @@ fun main() {
         println(it)
     }
 //    println()
+    fun calculateGCD(a: Long, b: Long): Long {
+        var num1 = a
+        var num2 = b
+        while (num2 != 0L) {
+            val temp = num2
+            num2 = num1 % num2
+            num1 = temp
+        }
+        return num1
+    }
 
     parsedInput.forEachIndexed { index, machine ->
         val ax = machine.buttonA.first
@@ -46,29 +60,13 @@ fun main() {
         val by = machine.buttonB.second
         val py = machine.prize.second
 
-        var res : Pair<Long,Long>? = null
-        val ratioAx = px/ax
-        val ratioBx = px/bx
+        var res: Pair<Long, Long>? = null
 
-        val ratioAy = py/ay
-        val ratioBy = py/by
-
-        for (c in 0.. max(max(ratioAx, ratioBx), max(ratioAy, ratioBy))) {
-            val x2 = c
-            val x1 = (px - (bx*x2))/ax
-//            val y2 = c
-//            val y1 = (py - (by*y2))/ay
-
-            loopCounter = loopCounter +1
-            if (ax*x1 + bx*x2 == px && ay*x1 + by*x2 == py) {
-                if (res != null && x1*aCost +x2* bCost < res.first* aCost + res.second*bCost) {
-                    res = Pair(x1,x2)
-                } else
-                    if (res == null) {
-                        res = Pair(x1,x2)
-                    }
-
-            }
+        val x1 = ((px.toDouble()/bx.toDouble()-py.toDouble()/by.toDouble())/(ax.toDouble()/bx.toDouble()-ay.toDouble()/by.toDouble()))
+        val x2 = ((px.toDouble()-ax.toDouble()*x1.toDouble())/bx.toDouble())
+//        println("$x1 - $x2")
+        if (abs(x1 - x1.roundToLong()) < 0.001 && abs(x2 - x2.roundToLong()) < 0.001) {
+            res = Pair(x1.roundToLong(),x2.roundToLong())
         }
 
         res?.let {
@@ -79,7 +77,11 @@ fun main() {
     }
 
     println("----------------------")
-    println("res 1 = ${mins.sum()}") // 35255
-    println("loopCounter = ${loopCounter}") // 248 140 // 172 244
+    println("res 2 = ${mins.sum()}") // p1 35255 // p2 87582154060429
+    println("loopCounter = ${loopCounter}")
+    // sample p1  2 116 // 1079
+    // real p1 172 244 // 88 010
+    //sample p2
+    // real p2
 
 }
