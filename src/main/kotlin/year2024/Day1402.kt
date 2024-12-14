@@ -16,7 +16,7 @@ fun main() {
                         vy = pv[1].split(",")[1].toInt(),
                 )
         }
-//        parsed.forEach { println(it) }
+        parsed.forEach { println(it) }
 
         val board = arrayListOf<MutableList<String>>()
         val boardHeight = parsed.maxOf { it.py }
@@ -47,7 +47,7 @@ fun main() {
         println("--------------")
 
         for (s in 1..seconds) {
-//                println("-- sec - $s --")
+                println("-- sec - $s --")
                 parsed.forEach {
                         it.px = it.px+it.vx
                         if (it.px <0) {
@@ -61,10 +61,10 @@ fun main() {
                         }else if (it.py > boardHeight) {
                                 it.py = it.py - boardHeight -1
                         }
-//                        println(it)
+                        println(it)
                 }
+                drawBoard()
         }
-        drawBoard()
         val q1ymin = 0
         val q1xmin = 0
         val q1ymax = floor((boardHeight-1).toDouble()/2).roundToInt()
@@ -99,18 +99,19 @@ fun main() {
     val sums = arrayListOf<Int>()
     println("$boardHeight - $boardWidth")
     coordsArray.forEachIndexed { index, pair ->
-//            println("$index - $pair")
+            println("$index - $pair")
         parsed.map {
             if (it.px >= pair.first.second && it.px <= pair.second.second &&
                 it.py >= pair.first.first && it.py <= pair.second.first
                 ) {
-//                if (index == 2) println(it)
+                if (index == 2) println(it)
                 1
+
             }
                 else 0
         }.sum().let {
             sums.add(it)
-//            println(it)
+            println(it)
         }
     }
     var multiplied = 1
@@ -143,7 +144,7 @@ fun main() {
 //    "p=9,5 v=-3,-3",
 //)
 
-val realInput14 = arrayListOf(
+val realInput142 = arrayListOf(
         "p=50,78 v=89,45",
         "p=65,96 v=88,-21",
         "p=23,63 v=61,46",
