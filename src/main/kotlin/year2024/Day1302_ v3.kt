@@ -64,7 +64,6 @@ fun main() {
 
         val x1 = ((px.toDouble()/bx.toDouble()-py.toDouble()/by.toDouble())/(ax.toDouble()/bx.toDouble()-ay.toDouble()/by.toDouble()))
         val x2 = ((px.toDouble()-ax.toDouble()*x1.toDouble())/bx.toDouble())
-//        println("$x1 - $x2")
         if (abs(x1 - x1.roundToLong()) < 0.001 && abs(x2 - x2.roundToLong()) < 0.001) {
             res = Pair(x1.roundToLong(),x2.roundToLong())
         }
