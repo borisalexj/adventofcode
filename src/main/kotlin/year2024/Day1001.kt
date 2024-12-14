@@ -3,9 +3,10 @@ package year2024
 //val results = arrayListOf<Pair<Int, Int>>()
 val results = hashMapOf<Pair<Int, Int>, ArrayList<Pair<Int, Int>>>()
 fun main() {
-    val parsed = realInput10.map { it.split("").filter { it.isNotEmpty() }
-        .map { if (it.toString()==".") -1 else it.toInt() }
-        }
+    val parsed = realInput10.map {
+        it.split("").filter { it.isNotEmpty() }
+            .map { if (it.toString() == ".") -1 else it.toInt() }
+    }
 
     parsed.forEach { println(it) }
 
@@ -23,19 +24,19 @@ fun main() {
     println("----------------")
 //    results.size.let { println(it) }
 //    results.filter { it.first != -1 && it.second != -1 }.size.let { println(it) }
-    results.keys.sortedBy { it.second }.sortedBy { it.first }.forEach {key ->
+    results.keys.sortedBy { it.second }.sortedBy { it.first }.forEach { key ->
         println("$key - ${results[key]?.toSet()?.size} - ${results[key]?.toSet()}")
     }
     results.keys.size.let { println("trailheads - $it") }
 
-    results.keys.map {key ->
+    results.keys.map { key ->
         results[key]?.toSet()?.size ?: 0
     }.sum().let { println(it) }
 
 
 }
 
-fun recursion(parsed: List<List<Int>>, indexY: Int, indexX: Int, value: Int, startY: Int, startX: Int,) {
+fun recursion(parsed: List<List<Int>>, indexY: Int, indexX: Int, value: Int, startY: Int, startX: Int) {
 //    println("$indexY $indexX  - $value")
     if (parsed.getOrNull(indexY)?.getOrNull(indexX) == 9 && value == 9) {
 //        println("success")
@@ -50,19 +51,19 @@ fun recursion(parsed: List<List<Int>>, indexY: Int, indexX: Int, value: Int, sta
     }
 
     var tempY = indexY
-    var tempX = indexX +1
-    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value +1 ) {
-        recursion(parsed, tempY, tempX, value+1, startY, startX)
+    var tempX = indexX + 1
+    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value + 1) {
+        recursion(parsed, tempY, tempX, value + 1, startY, startX)
     }
 //    tempY = indexY +1
 //    tempX = indexX +1
 //    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value +1 ) {
 //        recursion(parsed, tempY, tempX, value+1, startY, startX)
 //    }
-    tempY = indexY +1
+    tempY = indexY + 1
     tempX = indexX
-    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value +1 ) {
-        recursion(parsed, tempY, tempX, value+1, startY, startX)
+    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value + 1) {
+        recursion(parsed, tempY, tempX, value + 1, startY, startX)
     }
 //    tempY = indexY +1
 //    tempX = indexX -1
@@ -71,18 +72,18 @@ fun recursion(parsed: List<List<Int>>, indexY: Int, indexX: Int, value: Int, sta
 //    }
     tempY = indexY
     tempX = indexX - 1
-    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value +1 ) {
-        recursion(parsed, tempY, tempX, value+1, startY, startX)
+    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value + 1) {
+        recursion(parsed, tempY, tempX, value + 1, startY, startX)
     }
 //    tempY = indexY -1
 //    tempX = indexX -1
 //    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value +1 ) {
 //        recursion(parsed, tempY, tempX, value+1, startY, startX)
 //    }
-    tempY = indexY -1
+    tempY = indexY - 1
     tempX = indexX
-    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value +1 ) {
-         recursion(parsed, tempY, tempX, value+1, startY, startX)
+    if (parsed.getOrNull(tempY)?.getOrNull(tempX) == value + 1) {
+        recursion(parsed, tempY, tempX, value + 1, startY, startX)
     }
 //    tempY = indexY -1
 //    tempX = indexX +1
@@ -93,31 +94,33 @@ fun recursion(parsed: List<List<Int>>, indexY: Int, indexX: Int, value: Int, sta
 
 val sampleInput10 = arrayListOf(
     "...0...",
-"...1...",
-"...2...",
-"6543456",
-"7.....7",
-"8.....8",
-"9.....9",
+    "...1...",
+    "...2...",
+    "6543456",
+    "7.....7",
+    "8.....8",
+    "9.....9",
 )
-val sampleInput102 = arrayListOf( // correct 4
+val sampleInput102 = arrayListOf(
+    // correct 4
     "..90..9",
-"...1.98",
-"...2..7",
-"6543456",
-"765.987",
-"876....",
-"987....",
+    "...1.98",
+    "...2..7",
+    "6543456",
+    "765.987",
+    "876....",
+    "987....",
 )
 
-val sampleInput103 = arrayListOf( // correct 3
+val sampleInput103 = arrayListOf(
+    // correct 3
     "10..9..",
-            "2...8..",
-"3...7..",
-"4567654",
-"...8..3",
-"...9..2",
-".....01",
+    "2...8..",
+    "3...7..",
+    "4567654",
+    "...8..3",
+    "...9..2",
+    ".....01",
 )
 val sampleInput10larger = arrayListOf(
     "89010123",
@@ -189,4 +192,4 @@ val realInput10 = arrayListOf(
     "210323430302112965525289030367676321456985430843476985107",
     "323014321210227871012100123458983210167890121652105876898",
 
-)
+    )

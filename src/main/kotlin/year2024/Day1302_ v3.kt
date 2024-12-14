@@ -3,8 +3,6 @@ package year2024
 import java.io.BufferedReader
 import java.io.File
 import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.roundToLong
 
 // 10 000 000 008 400
@@ -19,18 +17,18 @@ fun main() {
     val parsedInput = arrayListOf<Machine>()
     val mins = arrayListOf<Long>()
 
-    for (i in 0..(input.size -1) /3) {
-        val ax = input[i*3].split("X")[1].split(",")[0]
-        val ay = input[i*3].split("Y")[1]
-        val bx = input[i*3+1].split("X")[1].split(",")[0]
-        val by = input[i*3+1].split("Y")[1]
-        val px = input[i*3+2].split("X=")[1].split(",")[0]
-        val py = input[i*3+2].split("Y=")[1]
+    for (i in 0..(input.size - 1) / 3) {
+        val ax = input[i * 3].split("X")[1].split(",")[0]
+        val ay = input[i * 3].split("Y")[1]
+        val bx = input[i * 3 + 1].split("X")[1].split(",")[0]
+        val by = input[i * 3 + 1].split("Y")[1]
+        val px = input[i * 3 + 2].split("X=")[1].split(",")[0]
+        val py = input[i * 3 + 2].split("Y=")[1]
         val machine = Machine(
-            Pair(ax.toLong(),ay.toLong()),
-            Pair(bx.toLong(),by.toLong()),
+            Pair(ax.toLong(), ay.toLong()),
+            Pair(bx.toLong(), by.toLong()),
 //            Pair(px.toLong(),py.toLong()),
-            Pair(px.toLong() + 10000000000000,py.toLong() + 10000000000000),
+            Pair(px.toLong() + 10000000000000, py.toLong() + 10000000000000),
         )
         parsedInput.add(machine)
     }
@@ -40,7 +38,7 @@ fun main() {
     parsedInput.forEach {
         println(it)
     }
-//    println()
+    //    println()
     fun calculateGCD(a: Long, b: Long): Long {
         var num1 = a
         var num2 = b
@@ -62,15 +60,16 @@ fun main() {
 
         var res: Pair<Long, Long>? = null
 
-        val x1 = ((px.toDouble()/bx.toDouble()-py.toDouble()/by.toDouble())/(ax.toDouble()/bx.toDouble()-ay.toDouble()/by.toDouble()))
-        val x2 = ((px.toDouble()-ax.toDouble()*x1.toDouble())/bx.toDouble())
+        val x1 =
+            ((px.toDouble() / bx.toDouble() - py.toDouble() / by.toDouble()) / (ax.toDouble() / bx.toDouble() - ay.toDouble() / by.toDouble()))
+        val x2 = ((px.toDouble() - ax.toDouble() * x1.toDouble()) / bx.toDouble())
         if (abs(x1 - x1.roundToLong()) < 0.001 && abs(x2 - x2.roundToLong()) < 0.001) {
-            res = Pair(x1.roundToLong(),x2.roundToLong())
+            res = Pair(x1.roundToLong(), x2.roundToLong())
         }
 
         res?.let {
             println("$index - $machine - $it")
-            mins.add(it.first*aCost + it.second*bCost)
+            mins.add(it.first * aCost + it.second * bCost)
         }
 
     }

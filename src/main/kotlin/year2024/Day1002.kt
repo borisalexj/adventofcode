@@ -3,9 +3,10 @@ package year2024
 //val results = arrayListOf<Pair<Int, Int>>()
 //val results = hashMapOf<Pair<Int, Int>, ArrayList<Pair<Int, Int>>>()
 fun main() {
-    val parsed = realInput10.map { it.split("").filter { it.isNotEmpty() }
-        .map { if (it.toString()==".") -1 else it.toInt() }
-        }
+    val parsed = realInput10.map {
+        it.split("").filter { it.isNotEmpty() }
+            .map { if (it.toString() == ".") -1 else it.toInt() }
+    }
 
     parsed.forEach { println(it) }
 
@@ -23,13 +24,13 @@ fun main() {
     println("----------------")
 //    results.size.let { println(it) }
 //    results.filter { it.first != -1 && it.second != -1 }.size.let { println(it) }
-    results.keys.sortedBy { it.second }.sortedBy { it.first }.forEach {key ->
+    results.keys.sortedBy { it.second }.sortedBy { it.first }.forEach { key ->
 //        println("$key - ${results[key]?.toSet()?.size} - ${results[key]?.toSet()}")
         println("$key - ${results[key]?.size} - ${results[key]}")
     }
     results.keys.size.let { println("trailheads - $it") }
 
-    results.keys.map {key ->
+    results.keys.map { key ->
         results[key]?.size ?: 0
     }.sum().let { println(it) }
 
@@ -38,22 +39,22 @@ fun main() {
 
 val sampleInput1022 = arrayListOf(
     ".....0.",
-"..4321.",
-"..5..2.",
-"..6543.",
-"..7..4.",
-"..8765.",
-"..9....",
+    "..4321.",
+    "..5..2.",
+    "..6543.",
+    "..7..4.",
+    "..8765.",
+    "..9....",
 )
 
 val sampleInput1023 = arrayListOf(
     "..90..9",
-"...1.98",
-"...2..7",
-"6543456",
-"765.987",
-"876....",
-"987....",
+    "...1.98",
+    "...2..7",
+    "6543456",
+    "765.987",
+    "876....",
+    "987....",
 )
 val sampleInput1024 = arrayListOf(
     "012345",

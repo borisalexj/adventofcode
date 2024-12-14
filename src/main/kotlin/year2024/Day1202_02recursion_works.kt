@@ -5,7 +5,7 @@ fun main() {
 //    val parsed = sampleInput122.map { it.split("").filter { it.isNotEmpty() } }
 //    val parsed = sampleInput125.map { it.split("").filter { it.isNotEmpty() } }
 //    val parsed = sampleInput123.map { it.split("").filter {it.isNotEmpty()}}
-    val parsed = realinput12.map { it.split("").filter {it.isNotEmpty()}}
+    val parsed = realinput12.map { it.split("").filter { it.isNotEmpty() } }
 //    val parsed = realInput12gmail.map { it.split("").filter {it.isNotEmpty()}}
 
 //    val distinct = parsed.flatten().toSet()
@@ -15,42 +15,48 @@ fun main() {
     var regions = arrayListOf<ArrayList<Pair<Int, Int>>>()
     var region = arrayListOf<Pair<Int, Int>>()
 
-    fun recursion(previousArray: ArrayList<Pair<Int,Int>>, currentY: Int, currentX: Int, prevY : Int, prevX: Int, letter: String) :List<Pair<Int,Int>> {
+    fun recursion(
+        previousArray: ArrayList<Pair<Int, Int>>,
+        currentY: Int,
+        currentX: Int,
+        prevY: Int,
+        prevX: Int,
+        letter: String
+    ): List<Pair<Int, Int>> {
         println("$currentY - $currentX")
         val current = if (parsed.getOrNull(currentY)?.getOrNull(currentX) == letter) Pair(currentY, currentX) else null
         current?.let { previousArray.add(it) }
 
-        val bottom = if (parsed.getOrNull(currentY +1)?.getOrNull(currentX) == letter
+        val bottom = if (parsed.getOrNull(currentY + 1)?.getOrNull(currentX) == letter
             && currentY + 1 != prevY
-            && !previousArray.contains(Pair(currentY +1, currentX))
-            ) {
-            recursion(previousArray, currentY+1, currentX, currentY, currentX, letter)
+            && !previousArray.contains(Pair(currentY + 1, currentX))
+        ) {
+            recursion(previousArray, currentY + 1, currentX, currentY, currentX, letter)
         } else null
 
-        val top = if (parsed.getOrNull(currentY -1)?.getOrNull(currentX) == letter
+        val top = if (parsed.getOrNull(currentY - 1)?.getOrNull(currentX) == letter
             && currentY - 1 != prevY
-            && !previousArray.contains(Pair(currentY -1, currentX))
-            )         {
-            recursion(previousArray, currentY-1, currentX,  currentY, currentX,  letter)
+            && !previousArray.contains(Pair(currentY - 1, currentX))
+        ) {
+            recursion(previousArray, currentY - 1, currentX, currentY, currentX, letter)
         } else null
 
-        val left = if (parsed.getOrNull(currentY)?.getOrNull(currentX-1) == letter
+        val left = if (parsed.getOrNull(currentY)?.getOrNull(currentX - 1) == letter
             && currentX - 1 != prevX
-            && !previousArray.contains(Pair(currentY , currentX-1))
-            )       {
-            recursion(previousArray, currentY, currentX-1,  currentY, currentX,  letter)
+            && !previousArray.contains(Pair(currentY, currentX - 1))
+        ) {
+            recursion(previousArray, currentY, currentX - 1, currentY, currentX, letter)
         } else null
 
-        val right = if (parsed.getOrNull(currentY)?.getOrNull(currentX+1) == letter
+        val right = if (parsed.getOrNull(currentY)?.getOrNull(currentX + 1) == letter
             && currentX + 1 != prevX
-            && !previousArray.contains(Pair(currentY , currentX+1))
-            )        {
-            recursion(previousArray, currentY, currentX+1,  currentY, currentX,  letter)
+            && !previousArray.contains(Pair(currentY, currentX + 1))
+        ) {
+            recursion(previousArray, currentY, currentX + 1, currentY, currentX, letter)
         } else null
 
 
-
-        val result = arrayListOf<Pair<Int,Int>>()
+        val result = arrayListOf<Pair<Int, Int>>()
         result.addAll(previousArray)
         bottom?.let { result.addAll(it) }
         top?.let { result.addAll(it) }
@@ -58,18 +64,18 @@ fun main() {
         right?.let { result.addAll(it) }
 
 //        return result
-        return result.toSet() .toList()
+        return result.toSet().toList()
     }
 
-    for (y in 0..parsed.size-1){
-        for (x in 0..parsed[0].size-1) {
+    for (y in 0..parsed.size - 1) {
+        for (x in 0..parsed[0].size - 1) {
             val letter = parsed[y][x]
             println("$letter - $y, $x, - ${regionsByLetters.values.flatten().flatten()}")
-            if (regionsByLetters.values.flatten().flatten().any { it.first ==y && it.second == x }) {
+            if (regionsByLetters.values.flatten().flatten().any { it.first == y && it.second == x }) {
                 continue
             } else {
 
-                val arr = recursion(arrayListOf(), y,x, -1, -1, letter)
+                val arr = recursion(arrayListOf(), y, x, -1, -1, letter)
                 println("$letter - ${parsed[y][x]} - $arr")
                 val regionsForLetter = regionsByLetters.getOrDefault(letter, null)
                 if (regionsForLetter == null) {
@@ -106,18 +112,18 @@ fun main() {
 //        val perimeter = (maxY - minY +1)*2 + (maxX - minX +1)*2
             var perimeter = 0
             val internalPairs = arrayListOf(
-                Triple(Pair(0,-1),Pair(-1,0), Pair(-1,-1)),
-                Triple(Pair(-1,0),Pair(0,+1), Pair(-1,+1)),
-                Triple(Pair(0,+1),Pair(+1,0), Pair(+1,+1)),
-                Triple(Pair(+1,0),Pair(0,-1), Pair(+1,-1)),
+                Triple(Pair(0, -1), Pair(-1, 0), Pair(-1, -1)),
+                Triple(Pair(-1, 0), Pair(0, +1), Pair(-1, +1)),
+                Triple(Pair(0, +1), Pair(+1, 0), Pair(+1, +1)),
+                Triple(Pair(+1, 0), Pair(0, -1), Pair(+1, -1)),
             )
             for (point in coords) {
                 val internal = internalPairs.map {
                     val v1 = coords.contains(Pair(point.first + it.first.first, point.second + it.first.second))
                     val v2 = coords.contains(Pair(point.first + it.second.first, point.second + it.second.second))
                     if (
-                    !coords.contains(Pair(point.first + it.first.first, point.second + it.first.second)) &&
-                    coords.contains(Pair(point.first + it.third.first, point.second + it.third.second))
+                        !coords.contains(Pair(point.first + it.first.first, point.second + it.first.second)) &&
+                        coords.contains(Pair(point.first + it.third.first, point.second + it.third.second))
                     ) 1 else 0
                 }
                 val external = internalPairs.map {
@@ -126,7 +132,8 @@ fun main() {
                     if (
                         !coords.contains(Pair(point.first + it.first.first, point.second + it.first.second)) &&
                         !coords.contains(Pair(point.first + it.second.first, point.second + it.second.second)) &&
-                        !coords.contains(Pair(point.first + it.third.first, point.second + it.third.second)
+                        !coords.contains(
+                            Pair(point.first + it.third.first, point.second + it.third.second)
                         )
                     ) 1 else 0
                 }
@@ -163,18 +170,18 @@ fun main() {
 //)
 val sampleInput124 = arrayListOf(
     "EEEEE",
-            "EXXXX",
-            "EEEEE",
-            "EXXXX",
-            "EEEEE",
+    "EXXXX",
+    "EEEEE",
+    "EXXXX",
+    "EEEEE",
 )
 val sampleInput125 = arrayListOf(
     "AAAAAA",
-            "AAABBA",
-            "AAABBA",
-            "ABBAAA",
-            "ABBAAA",
-            "AAAAAA",
+    "AAABBA",
+    "AAABBA",
+    "ABBAAA",
+    "ABBAAA",
+    "AAAAAA",
 )
 //val sampleInput123 = arrayListOf(
 //    "RRRRIICCFF",

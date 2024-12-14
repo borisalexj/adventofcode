@@ -25,12 +25,12 @@ fun main() {
                 newRes.add(1L)
             } else if (stone.toString().length % 2 == 0) { // парне
                 val stoneStr = stone.toString()
-                val leftStone = stoneStr.subSequence(0, stoneStr.length/2).toString()
-                val rightStone = stoneStr.subSequence(stoneStr.length/2, stoneStr.length).toString()
+                val leftStone = stoneStr.subSequence(0, stoneStr.length / 2).toString()
+                val rightStone = stoneStr.subSequence(stoneStr.length / 2, stoneStr.length).toString()
                 newRes.add(leftStone.toLong())
                 newRes.add(rightStone.toLong())
             } else {
-                newRes.add(stone*2024)
+                newRes.add(stone * 2024)
             }
 
         }
