@@ -35,7 +35,7 @@ fun main() {
             posY = posY+moveTo.first
             posX = posX+moveTo.second
         } else if (next == movable){
-            val shouldMove = recursionPush(input, posY + moveTo.first, posX + moveTo.second, moveTo.first, moveTo.second)
+            val shouldMove = recursionPush1(input, posY + moveTo.first, posX + moveTo.second, moveTo.first, moveTo.second)
             if (shouldMove) {
                 input[posY+moveTo.first][posX+moveTo.second] = "@"
                 input[posY][posX] = empty
@@ -73,7 +73,7 @@ val brick = "#"
 val empty = "."
 
 
-fun recursionPush(input: List<MutableList<String>>, posY: Int, posX: Int, moveToY: Int, moveToX: Int) : Boolean {
+fun recursionPush1(input: List<MutableList<String>>, posY: Int, posX: Int, moveToY: Int, moveToX: Int) : Boolean {
 //    if (posY+moveToY == 1 || posX+moveToX == 1 || posY+moveToY == input.size || posX+moveToX == input[0].size) {
 //        return false
 //    }
@@ -86,7 +86,7 @@ fun recursionPush(input: List<MutableList<String>>, posY: Int, posX: Int, moveTo
         input[posY][posX] = empty
             return true
     } else if (next == movable){
-        if (recursionPush(input, posY+moveToY, posX+moveToX, moveToY, moveToX)) {
+        if (recursionPush1(input, posY+moveToY, posX+moveToX, moveToY, moveToX)) {
             input[posY+moveToY][posX+moveToX] = movable
             input[posY][posX] = empty
             return true
