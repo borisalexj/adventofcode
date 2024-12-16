@@ -26,25 +26,26 @@ fun main() {
 //    val directions = sampleDirections152.joinToString("")
 //    input.forEach { println(it.joinToString("")) }
 
-    var input = sampleInput15big.map {
-        it.split("").map {
-            if (it == "@") arrayListOf(it, ".")
-            else if (it == "O") arrayListOf("[", "]")
-            else arrayListOf(it, it)
-        }.flatten().takeIf { it.isNotEmpty() }!!.toMutableList()
-    }
-    val directions = sampleDirections15big.joinToString("")
-    input.forEach { println(it.joinToString("")) }
-//
-//    var input = realInput15.map {
-//        it.split("").map {
+//    var input = sampleInput15big.map {
+//        it.split("").filter { it.isNotEmpty() }.map {
 //            if (it == "@") arrayListOf(it, ".")
 //            else if (it == "O") arrayListOf("[", "]")
 //            else arrayListOf(it, it)
 //        }.flatten().takeIf { it.isNotEmpty() }!!.toMutableList()
 //    }
-//    val directions = realDirections15.joinToString("")
+//    val directions = sampleDirections15big.joinToString("")
 //    input.forEach { println(it.joinToString("")) }
+//    input.forEach { println(it) }
+//
+    var input = realInput15.map {
+        it.split("").filter { it.isNotEmpty() }.map {
+            if (it == "@") arrayListOf(it, ".")
+            else if (it == "O") arrayListOf("[", "]")
+            else arrayListOf(it, it)
+        }.flatten().takeIf { it.isNotEmpty() }!!.toMutableList()
+    }
+    val directions = realDirections15.joinToString("")
+    input.forEach { println(it.joinToString("")) }
 
 
     //    val input = sampleInput15.map { it.split("").toMutableList()}
@@ -65,25 +66,11 @@ fun main() {
     var posX = startX
     directions.forEachIndexed { index, direction ->
         val moveTo = when (direction) {
-            '<' -> {
-                Pair(0, -1)
-            }
-
-            '>' -> {
-                Pair(0, 1)
-            }
-
-            'v' -> {
-                Pair(1, 0)
-            }
-
-            '^' -> {
-                Pair(-1, 0)
-            }
-
-            else -> {
-                throw IllegalStateException()
-            }
+            '<' -> { Pair(0, -1) }
+            '>' -> { Pair(0, 1) }
+            'v' -> { Pair(1, 0) }
+            '^' -> { Pair(-1, 0) }
+            else -> { throw IllegalStateException() }
         }
         val next = input[posY + moveTo.first][posX + moveTo.second]
         if (next == empty) {
@@ -119,7 +106,7 @@ fun main() {
 //            input.forEach { println(it.joinToString("")) }
 //        }
     }
-            input.forEach { println(it.joinToString("")) }
+    input.forEach { println(it.joinToString("")) }
 
 //     val input2 = arrayListOf(
 //         "#######",
@@ -131,15 +118,21 @@ fun main() {
 //    "##...[]...",
 //    "##........",
 //).map { it.split("").toMutableList() }
-val res = arrayListOf<Int>()
-for (y in 0..input.size-1) {
-    for (x in 0..input[0].size-1) {
-        if (input[y][x] == movableL)
+    val res = arrayListOf<Int>()
+    for (y in 0..input.size - 1) {
+        for (x in 0..input[0].size - 1) {
+            if (input[y][x] == movableL) {
 //            res.add(100*y + x-1)
 //            res.add(100*min(y, input.size-1 - y) + min(x-1, input[0].size - (x +1)))
-            res.add(100*y + min(x-1, input[0].size - x +1))
+
+//                val pointScore = 100 * y + min(x, input[0].size -x -2) // from closest edge
+                val pointScore = 100 * y + x
+                res.add(pointScore)
+                print("$pointScore,")
+            }
+        }
+        println()
     }
-}
 
 //    input.mapIndexed { indexY, strings ->
 //        strings.mapIndexed { indexX, letter ->
@@ -150,7 +143,8 @@ for (y in 0..input.size-1) {
 //    }.flatten().sum().let {
 //        println("Result 1 - $it")
 //    }
-        println("Result 2 - ${res.sum()}")
+    println("Result 2 - ${res.size}")
+    println("Result 2 - ${res.sum()}")
 }
 
 val movableL = "["
