@@ -1,25 +1,38 @@
 package year2024
 
-import java.lang.IllegalStateException
+import kotlin.IllegalStateException
 
 val sampleInput152 = arrayListOf(
     "#######",
-    "#...#.#",
-    "#.....#",
-    "#..OO@#",
-    "#..O..#",
-    "#.....#",
-    "#######",
+"#...#.#",
+"#.....#",
+"#..OO@#",
+"#..O..#",
+"#.....#",
+"#######",
 )
 val sampleDirections152 = arrayListOf("<vv<<^^<<^^")
+//val sampleDirections152 = arrayListOf("<^<<v<<^^")
 
 fun main() {
-    val input = sampleInput152.map { it.split("").map {
-        if (it == "@") arrayListOf(it,".")
-        else if  (it == "O") arrayListOf("[","]")
-        else arrayListOf(it,it)
-    }.flatten().takeIf { it.isNotEmpty() }!!.toMutableList()}
-    val directions = sampleDirections152.joinToString("")
+//    val input = sampleInput152.map {
+//        it.split("").map {
+//            if (it == "@") arrayListOf(it, ".")
+//            else if (it == "O") arrayListOf("[", "]")
+//            else arrayListOf(it, it)
+//        }.flatten().takeIf { it.isNotEmpty() }!!.toMutableList()
+//    }
+//    val directions = sampleDirections152.joinToString("")
+//    input.forEach { println(it.joinToString("")) }
+
+    val input = sampleInput15big.map {
+        it.split("").map {
+            if (it == "@") arrayListOf(it, ".")
+            else if (it == "O") arrayListOf("[", "]")
+            else arrayListOf(it, it)
+        }.flatten().takeIf { it.isNotEmpty() }!!.toMutableList()
+    }
+    val directions = sampleDirections15big.joinToString("")
     input.forEach { println(it.joinToString("")) }
 
 
@@ -32,8 +45,8 @@ fun main() {
 //    val input = realInput15.map { it.split("").toMutableList()}
 //    val directions = realDirections15.joinToString("")
 
-            input.forEach { println(it)}
-            println("===========================")
+    input.forEach { println(it) }
+    println("===========================")
 //println()
     val startY = input.indexOfFirst { it.contains("@") }
     val startX = input.find { it.contains("@") }?.indexOf("@")!!
@@ -41,37 +54,60 @@ fun main() {
     var posX = startX
     directions.forEachIndexed { index, direction ->
         val moveTo = when (direction) {
-            '<' -> { Pair(0,-1) }
-            '>' -> { Pair(0, 1) }
-            'v' -> { Pair(1, 0) }
-            '^' -> { Pair(-1, 0) }
-            else -> { throw IllegalStateException()}
+            '<' -> {
+                Pair(0, -1)
+            }
+
+            '>' -> {
+                Pair(0, 1)
+            }
+
+            'v' -> {
+                Pair(1, 0)
+            }
+
+            '^' -> {
+                Pair(-1, 0)
+            }
+
+            else -> {
+                throw IllegalStateException()
+            }
         }
-        val next = input[posY+moveTo.first][posX+moveTo.second]
+        val next = input[posY + moveTo.first][posX + moveTo.second]
         if (next == empty) {
             input[posY][posX] = empty
-            input[posY+moveTo.first][posX+moveTo.second] = "@"
+            input[posY + moveTo.first][posX + moveTo.second] = "@"
             input[posY][posX] = empty
-            posY = posY+moveTo.first
-            posX = posX+moveTo.second
-        } else if (next == movableL || next == movableR){
-            val shouldMove = if (moveTo.second !=0)
-                    recursionPushHor(input, posY + moveTo.first, posX + moveTo.second, moveTo.first, moveTo.second)
-                else recursionPushVer(input, posY + moveTo.first, posX + moveTo.second, moveTo.first, moveTo.second)
+            posY = posY + moveTo.first
+            posX = posX + moveTo.second
+        } else if (next == movableL || next == movableR) {
+            val shouldMove = if (moveTo.second != 0)
+                recursionPushHor(input, posY + moveTo.first, posX + moveTo.second, moveTo.first, moveTo.second)
+            else if (next == movableR) {
+                recursionPushVer(input, posY + moveTo.first, posX + moveTo.second, moveTo.first, moveTo.second, index)
+//                recursionPushVer(input,posY + moveTo.first,posX + moveTo.second - 1,moveTo.first,moveTo.second, index)
+            } else if (next == movableL) {
+                recursionPushVer(input, posY + moveTo.first, posX + moveTo.second, moveTo.first, moveTo.second, index)
+//                recursionPushVer(input,posY + moveTo.first,posX + moveTo.second + 1,moveTo.first,moveTo.second, index)
+            } else {
+                throw IllegalStateException()
+            }
+
             if (shouldMove) {
-                input[posY+moveTo.first][posX+moveTo.second] = "@"
+                input[posY + moveTo.first][posX + moveTo.second] = "@"
                 input[posY][posX] = empty
-                posY = posY+moveTo.first
-                posX = posX+moveTo.second
+                posY = posY + moveTo.first
+                posX = posX + moveTo.second
             }
         } else if (next == brick) {
             // do nothing
         }
-        if (index <5000000) {
+        if (index < 5000000) {
             println("-$index- $direction -------------")
-            input.forEach { println(it.joinToString(""))}
+            input.forEach { println(it.joinToString("")) }
         }
-     }
+    }
 
 //     val input2 = arrayListOf(
 //         "#######",
@@ -79,38 +115,39 @@ fun main() {
 //         "#......",
 //     ).map { it.split("").toMutableList()}
 
-     input.mapIndexed { indexY, strings ->
-         strings.mapIndexed  { indexX, letter ->
-             if (letter == movableR) {
-                 100*indexY+indexX-1
-             } else 0
-             }
-      }.flatten().sum().let {
-          println("Result 1 - $it")
-       }
+    input.mapIndexed { indexY, strings ->
+        strings.mapIndexed { indexX, letter ->
+            if (letter == movableR) {
+                100 * indexY + indexX - 1
+            } else 0
+        }
+    }.flatten().sum().let {
+        println("Result 1 - $it")
+    }
 }
 
 val movableL = "["
 val movableR = "]"
+
 //val brick = "#"
 //val empty = "."
 //
 //
-fun recursionPushHor(input: List<MutableList<String>>, posY: Int, posX: Int, moveToY: Int, moveToX: Int) : Boolean {
+fun recursionPushHor(input: List<MutableList<String>>, posY: Int, posX: Int, moveToY: Int, moveToX: Int): Boolean {
 //    if (posY+moveToY == 1 || posX+moveToX == 1 || posY+moveToY == input.size || posX+moveToX == input[0].size) {
 //        return false
 //    }
-    val next = input[posY+moveToY][posX+moveToX]
+    val next = input[posY + moveToY][posX + moveToX]
     if (next == brick) {
         return false
     }
     if (next == empty) {
-        input[posY+moveToY][posX+moveToX] = input[posY][posX]
+        input[posY + moveToY][posX + moveToX] = input[posY][posX]
         input[posY][posX] = empty
-            return true
-    } else if (next == movableL || next == movableR){
-        if (recursionPushHor(input, posY+moveToY, posX+moveToX, moveToY, moveToX)) {
-            input[posY+moveToY][posX+moveToX] = input[posY][posX]
+        return true
+    } else if (next == movableL || next == movableR) {
+        if (recursionPushHor(input, posY + moveToY, posX + moveToX, moveToY, moveToX)) {
+            input[posY + moveToY][posX + moveToX] = input[posY][posX]
             input[posY][posX] = empty
             return true
         }
@@ -118,57 +155,56 @@ fun recursionPushHor(input: List<MutableList<String>>, posY: Int, posX: Int, mov
     return false
 }
 
-fun recursionPushVer(input: List<MutableList<String>>, posY: Int, posX: Int, moveToY: Int, moveToX: Int) : Boolean {
+fun recursionPushVer(input: List<MutableList<String>>, posY: Int, posX: Int, moveToY: Int, moveToX: Int, index: Int): Boolean {
 //    if (posY+moveToY == 1 || posX+moveToX == 1 || posY+moveToY == input.size || posX+moveToX == input[0].size) {
 //        return false
 //    }
-    val next = input[posY+moveToY][posX+moveToX]
+//    if (index == 5) {
+//        input.forEach { println(it.joinToString("")) }
+//    }
+    val next = input[posY + moveToY][posX + moveToX]
     if (next == brick) {
         return false
     }
+//    if (next == empty) {
+//        return true
+//    }
+    val displacement = if(moveToY == -1) 1 else -1
     val current = input[posY][posX]
-    if ((current == movableL && next == empty && input[posY+moveToY][posX+moveToX+1] == empty)
+    if (current == empty) return true
+    if ((current == movableL && next == empty && input[posY + moveToY][posX + moveToX + 1] == empty)
         ||
-        (current == movableR && next == empty && input[posY+moveToY][posX+moveToX-1] == empty)
-        ) {
+        (current == movableR && next == empty && input[posY + moveToY][posX + moveToX - 1] == empty)
+    ) {
         if (current == movableL) {
-        input[posY+moveToY][posX+moveToX+1] = movableR
-        input[posY][posX+1] = empty
+            input[posY + moveToY][posX + moveToX + 1] = movableR
+            input[posY][posX + 1] = empty
         } else if (current == movableR) {
-           input[posY+moveToY][posX+moveToX-1] = movableL
-           input[posY][posX-1] = empty
+            input[posY + moveToY][posX + moveToX - 1] = movableL
+            input[posY][posX - 1] = empty
         }
-        input[posY+moveToY][posX+moveToX] = current
+        input[posY + moveToY][posX + moveToX] = current
         input[posY][posX] = empty
+        return true
+    } else if (current == movableL) {
+        if (recursionPushVer(input, posY + moveToY, posX + moveToX, moveToY, moveToX, index)
+            && (recursionPushVer(input, posY + moveToY, posX + moveToX + 1, moveToY, moveToX, index) || input[posY + moveToY][posX + moveToX - 1] == empty)
+        ) {
+            input[posY + moveToY][posX + moveToX + 1] = movableR
+            input[posY][posX + 1] = empty
+            input[posY + moveToY][posX + moveToX] = current
+            input[posY][posX] = empty
             return true
-    } else if (next == movableL){
-        if (recursionPushVer(input, posY+moveToY, posX+moveToX, moveToY, moveToX)
-         && recursionPushVer(input, posY+moveToY, posX+moveToX+1, moveToY, moveToX)
-            ) {
-             if (current == movableL) {
-                    input[posY+moveToY][posX+moveToX+1] = movableR
-                    input[posY][posX+1] = empty
-                    } else if (current == movableR) {
-                       input[posY+moveToY][posX+moveToX-1] = movableL
-                       input[posY][posX-1] = empty
-                    }
-                    input[posY+moveToY][posX+moveToX] = current
-                    input[posY][posX] = empty
-                        return true
         }
-    } else if (next == movableR){
-        if (recursionPushVer(input, posY+moveToY, posX+moveToX, moveToY, moveToX)
-        && recursionPushVer(input, posY+moveToY, posX+moveToX-1, moveToY, moveToX)) {
-             if (current == movableL) {
-                    input[posY+moveToY][posX+moveToX+1] = movableR
-                    input[posY][posX+1] = empty
-                    } else if (current == movableR) {
-                       input[posY+moveToY][posX+moveToX-1] = movableL
-                       input[posY][posX-1] = empty
-                    }
-                    input[posY+moveToY][posX+moveToX] = current
-                    input[posY][posX] = empty
-                        return true
+    } else if (current == movableR) {
+        if (recursionPushVer(input, posY + moveToY, posX + moveToX, moveToY, moveToX, index)
+            && (recursionPushVer(input, posY + moveToY, posX + moveToX - 1, moveToY, moveToX, index) || input[posY + moveToY][posX + moveToX - 1] == empty)
+        ) {
+            input[posY + moveToY][posX + moveToX - 1] = movableL
+            input[posY][posX - 1] = empty
+            input[posY + moveToY][posX + moveToX] = current
+            input[posY][posX] = empty
+            return true
         }
     }
     return false

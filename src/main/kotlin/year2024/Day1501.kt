@@ -105,6 +105,9 @@ val sampleInput15 = arrayListOf(
 "#......#",
 "########",
 )
+val sampleDirections15 = arrayListOf(
+"<^^>>>vv<v>>v<<")
+
 val sampleInput15big = arrayListOf(
     "##########",
     "#..O..O.O#",
@@ -118,8 +121,6 @@ val sampleInput15big = arrayListOf(
     "##########",
 )
 
-val sampleDirections15 = arrayListOf(
-"<^^>>>vv<v>>v<<")
 val sampleDirections15big = arrayListOf(
     "<vv>^<v^>v>^vv^v>v<>v^v<v<^vv<<<^><<><>>v<vvv<>^v^>^<<<><<v<<<v^vv^v>^",
     "vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v",
