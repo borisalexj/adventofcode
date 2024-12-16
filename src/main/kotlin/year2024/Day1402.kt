@@ -74,6 +74,8 @@ fun main() {
 //                        }
 //                }
                 if (parsed.distinctBy { "${it.py}-${it.px}" }.size == parsed.size) {
+                        println("----------------")
+                        drawBoard()
                         println("${parsed.distinctBy { "$it.py-$it.px" }.size} - ${parsed.size}")
                         println("res 2 - $s")
                         break

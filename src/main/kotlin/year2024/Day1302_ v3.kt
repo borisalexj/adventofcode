@@ -8,11 +8,11 @@ import kotlin.math.roundToLong
 // 10 000 000 008 400
 fun main() {
     // https://ua.onlinemschool.com/math/library/analytic_geometry/lines_intersection/
-    val bufferedReader: BufferedReader = File("input13.txt").bufferedReader()
-    val inputString = bufferedReader.use { it.readLines() }
-    val input = inputString.filter { it.isNotEmpty() }.toMutableList()
-//    val input = sampleInput13
-//    println(input)
+//    val bufferedReader: BufferedReader = File("input13.txt").bufferedReader()
+//    val inputString = bufferedReader.use { it.readLines() }
+//    val input = inputString.filter { it.isNotEmpty() }.toMutableList()
+    val input = sampleInput13
+    println(input)
 
     val parsedInput = arrayListOf<Machine>()
     val mins = arrayListOf<Long>()
@@ -27,17 +27,17 @@ fun main() {
         val machine = Machine(
             Pair(ax.toLong(), ay.toLong()),
             Pair(bx.toLong(), by.toLong()),
-//            Pair(px.toLong(),py.toLong()),
-            Pair(px.toLong() + 10000000000000, py.toLong() + 10000000000000),
+            Pair(px.toLong(),py.toLong()),
+//            Pair(px.toLong() + 10000000000000, py.toLong() + 10000000000000),
         )
         parsedInput.add(machine)
     }
 
     var loopCounter = 0
 
-    parsedInput.forEach {
-        println(it)
-    }
+//    parsedInput.forEach {
+//        println(it)
+//    }
     //    println()
     fun calculateGCD(a: Long, b: Long): Long {
         var num1 = a
@@ -51,6 +51,7 @@ fun main() {
     }
 
     parsedInput.forEachIndexed { index, machine ->
+        println("------------------")
         val ax = machine.buttonA.first
         val bx = machine.buttonB.first
         val px = machine.prize.first
@@ -63,6 +64,9 @@ fun main() {
         val x1 =
             ((px.toDouble() / bx.toDouble() - py.toDouble() / by.toDouble()) / (ax.toDouble() / bx.toDouble() - ay.toDouble() / by.toDouble()))
         val x2 = ((px.toDouble() - ax.toDouble() * x1.toDouble()) / bx.toDouble())
+        println("$index - $machine")
+        println("$x1 - $x2")
+        // тут ще мала б бути перевірка що не 100 разів для першої частини.
         if (abs(x1 - x1.roundToLong()) < 0.001 && abs(x2 - x2.roundToLong()) < 0.001) {
             res = Pair(x1.roundToLong(), x2.roundToLong())
         }
@@ -75,6 +79,7 @@ fun main() {
     }
 
     println("----------------------")
+    println("res 2 = ${mins}") // p1 35255 // p2 87582154060429
     println("res 2 = ${mins.sum()}") // p1 35255 // p2 87582154060429
     println("loopCounter = ${loopCounter}")
     // sample p1  2 116 // 1079
