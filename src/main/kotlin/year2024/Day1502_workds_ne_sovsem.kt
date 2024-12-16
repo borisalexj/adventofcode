@@ -1,6 +1,7 @@
 package year2024
 
 import kotlin.IllegalStateException
+import kotlin.math.min
 
 val sampleInput152 = arrayListOf(
     "#######",
@@ -25,7 +26,7 @@ fun main() {
 //    val directions = sampleDirections152.joinToString("")
 //    input.forEach { println(it.joinToString("")) }
 
-    val input = sampleInput15big.map {
+    var input = sampleInput15big.map {
         it.split("").map {
             if (it == "@") arrayListOf(it, ".")
             else if (it == "O") arrayListOf("[", "]")
@@ -34,6 +35,16 @@ fun main() {
     }
     val directions = sampleDirections15big.joinToString("")
     input.forEach { println(it.joinToString("")) }
+//
+//    var input = realInput15.map {
+//        it.split("").map {
+//            if (it == "@") arrayListOf(it, ".")
+//            else if (it == "O") arrayListOf("[", "]")
+//            else arrayListOf(it, it)
+//        }.flatten().takeIf { it.isNotEmpty() }!!.toMutableList()
+//    }
+//    val directions = realDirections15.joinToString("")
+//    input.forEach { println(it.joinToString("")) }
 
 
     //    val input = sampleInput15.map { it.split("").toMutableList()}
@@ -103,27 +114,43 @@ fun main() {
         } else if (next == brick) {
             // do nothing
         }
-        if (index < 5000000) {
-            println("-$index- $direction -------------")
-            input.forEach { println(it.joinToString("")) }
-        }
+//        if (index < 5000000) {
+//            println("-$index- $direction -------------")
+//            input.forEach { println(it.joinToString("")) }
+//        }
     }
+            input.forEach { println(it.joinToString("")) }
 
 //     val input2 = arrayListOf(
 //         "#######",
 //         "#...O..",
 //         "#......",
 //     ).map { it.split("").toMutableList()}
-
-    input.mapIndexed { indexY, strings ->
-        strings.mapIndexed { indexX, letter ->
-            if (letter == movableR) {
-                100 * indexY + indexX - 1
-            } else 0
-        }
-    }.flatten().sum().let {
-        println("Result 1 - $it")
+//input = arrayListOf(
+//    "##########",
+//    "##...[]...",
+//    "##........",
+//).map { it.split("").toMutableList() }
+val res = arrayListOf<Int>()
+for (y in 0..input.size-1) {
+    for (x in 0..input[0].size-1) {
+        if (input[y][x] == movableL)
+//            res.add(100*y + x-1)
+//            res.add(100*min(y, input.size-1 - y) + min(x-1, input[0].size - (x +1)))
+            res.add(100*y + min(x-1, input[0].size - x +1))
     }
+}
+
+//    input.mapIndexed { indexY, strings ->
+//        strings.mapIndexed { indexX, letter ->
+//            if (letter == movableL) {
+//                100 * indexY + indexX
+//            } else 0
+//        }
+//    }.flatten().sum().let {
+//        println("Result 1 - $it")
+//    }
+        println("Result 2 - ${res.sum()}")
 }
 
 val movableL = "["
@@ -162,33 +189,36 @@ fun recursionPushVer(input: List<MutableList<String>>, posY: Int, posX: Int, mov
 //    if (index == 5) {
 //        input.forEach { println(it.joinToString("")) }
 //    }
-    val next = input[posY + moveToY][posX + moveToX]
-    if (next == brick) {
-        return false
-    }
+//    val next = input[posY + moveToY][posX + moveToX]
+//    if (next == brick) {
+//        return false
+//    }
 //    if (next == empty) {
 //        return true
 //    }
     val displacement = if(moveToY == -1) 1 else -1
     val current = input[posY][posX]
     if (current == empty) return true
-    if ((current == movableL && next == empty && input[posY + moveToY][posX + moveToX + 1] == empty)
-        ||
-        (current == movableR && next == empty && input[posY + moveToY][posX + moveToX - 1] == empty)
-    ) {
+    if (current == brick) return false
+//    if ((current == movableL && next == empty && input[posY + moveToY][posX + moveToX + 1] == empty)
+//        ||
+//        (current == movableR && next == empty && input[posY + moveToY][posX + moveToX - 1] == empty)
+//    ) {
+//        if (current == movableL) {
+//            input[posY + moveToY][posX + moveToX + 1] = movableR
+//            input[posY][posX + 1] = empty
+//        } else if (current == movableR) {
+//            input[posY + moveToY][posX + moveToX - 1] = movableL
+//            input[posY][posX - 1] = empty
+//        }
+//        input[posY + moveToY][posX + moveToX] = current
+//        input[posY][posX] = empty
+//        return true
+//    } else
         if (current == movableL) {
-            input[posY + moveToY][posX + moveToX + 1] = movableR
-            input[posY][posX + 1] = empty
-        } else if (current == movableR) {
-            input[posY + moveToY][posX + moveToX - 1] = movableL
-            input[posY][posX - 1] = empty
-        }
-        input[posY + moveToY][posX + moveToX] = current
-        input[posY][posX] = empty
-        return true
-    } else if (current == movableL) {
         if (recursionPushVer(input, posY + moveToY, posX + moveToX, moveToY, moveToX, index)
-            && (recursionPushVer(input, posY + moveToY, posX + moveToX + 1, moveToY, moveToX, index) || input[posY + moveToY][posX + moveToX - 1] == empty)
+            && (recursionPushVer(input, posY + moveToY, posX + moveToX + 1, moveToY, moveToX, index) // || input[posY + moveToY][posX + moveToX - 1] == empty
+                     )
         ) {
             input[posY + moveToY][posX + moveToX + 1] = movableR
             input[posY][posX + 1] = empty
@@ -198,7 +228,8 @@ fun recursionPushVer(input: List<MutableList<String>>, posY: Int, posX: Int, mov
         }
     } else if (current == movableR) {
         if (recursionPushVer(input, posY + moveToY, posX + moveToX, moveToY, moveToX, index)
-            && (recursionPushVer(input, posY + moveToY, posX + moveToX - 1, moveToY, moveToX, index) || input[posY + moveToY][posX + moveToX - 1] == empty)
+            && (recursionPushVer(input, posY + moveToY, posX + moveToX - 1, moveToY, moveToX, index)  //|| input[posY + moveToY][posX + moveToX - 1] == empty
+                     )
         ) {
             input[posY + moveToY][posX + moveToX - 1] = movableL
             input[posY][posX - 1] = empty
