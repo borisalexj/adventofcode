@@ -6,7 +6,7 @@ import kotlin.math.floor
 import kotlin.math.roundToInt
 
 fun main() {
-        val seconds = 100
+        val seconds2 = 1000000
         var parsed = realInput14.map {
                 val pv = it.split(" ")
                 Robot(
@@ -16,7 +16,8 @@ fun main() {
                         vy = pv[1].split(",")[1].toInt(),
                 )
         }
-        parsed.forEach { println(it) }
+//        parsed.forEach { println(it) }
+        println("initial parsed size - ${parsed.size}")
 
         val board = arrayListOf<MutableList<String>>()
         val boardHeight = parsed.maxOf { it.py }
@@ -30,7 +31,7 @@ fun main() {
                 for (y in 0..boardHeight) {
                         board.add(".".repeat(boardWidth).split("").toMutableList())
                         for (x in 0..boardWidth) {
-                                parsed.filter { it.px ==x && it.py ==y  }.size.let {
+                                parsed.filter { it.px ==x && it.py ==y }.size.let {
                                         if (it ==0) {
                                                 board[y][x] = "."
                                         } else {
@@ -46,8 +47,8 @@ fun main() {
 
         println("--------------")
 
-        for (s in 1..seconds) {
-                println("-- sec - $s --")
+        for (s in 1..seconds2) {
+//                println("-- sec - $s --")
                 parsed.forEach {
                         it.px = it.px+it.vx
                         if (it.px <0) {
@@ -61,64 +62,79 @@ fun main() {
                         }else if (it.py > boardHeight) {
                                 it.py = it.py - boardHeight -1
                         }
-                        println(it)
+//                        println(it)
                 }
-                drawBoard()
+
+//                parsed.filter {
+//                        it.
+//                }
+//                parsed.filter { it != "." }.distinct().forEach {dis ->
+//                        parsed.filter { it == dis }.size.let {
+//                                println("$dis - it")
+//                        }
+//                }
+                if (parsed.distinctBy { "${it.py}-${it.px}" }.size == parsed.size) {
+                        println("${parsed.distinctBy { "$it.py-$it.px" }.size} - ${parsed.size}")
+                        println("res 2 - $s")
+                        break
+                }
+//
+        //                drawBoard()
         }
-        val q1ymin = 0
-        val q1xmin = 0
-        val q1ymax = floor((boardHeight-1).toDouble()/2).roundToInt()
-        val q1xmax = floor((boardWidth-1).toDouble()/2).roundToInt()
-
-        val q2ymin = 0
-        val q2xmin = ceil((boardWidth+1).toDouble()/2).roundToInt()
-        val q2ymax = floor((boardHeight-1).toDouble()/2).roundToInt()
-        val q2xmax = boardWidth
-
-        val q3ymin = ceil((boardHeight+1).toDouble()/2).roundToInt()
-        val q3xmin = 0
-        val q3ymax = boardHeight
-        val q3xmax = floor((boardWidth-1).toDouble()/2).roundToInt()
-
-        val q4ymin = ceil((boardHeight+1).toDouble()/2).roundToInt()
-        val q4xmin = ceil((boardWidth+1).toDouble()/2).roundToInt()
-        val q4ymax = boardHeight
-        val q4xmax = boardWidth
-
-        val coordsArray = arrayListOf(
-            Pair(Pair(q1ymin, q1xmin), Pair(q1ymax, q1xmax)),
-            Pair(Pair(q2ymin, q2xmin), Pair(q2ymax, q2xmax)),
-            Pair(Pair(q3ymin,
-                    q3xmin), Pair(q3ymax,
-                    q3xmax)),
-            Pair(Pair(q4ymin,
-                    q4xmin), Pair( q4ymax,
-                    q4xmax )),
-        )
-
-    val sums = arrayListOf<Int>()
-    println("$boardHeight - $boardWidth")
-    coordsArray.forEachIndexed { index, pair ->
-            println("$index - $pair")
-        parsed.map {
-            if (it.px >= pair.first.second && it.px <= pair.second.second &&
-                it.py >= pair.first.first && it.py <= pair.second.first
-                ) {
-                if (index == 2) println(it)
-                1
-
-            }
-                else 0
-        }.sum().let {
-            sums.add(it)
-            println(it)
-        }
-    }
-    var multiplied = 1
-    for (num in sums) {
-        multiplied = multiplied *num
-    }
-    println("result 1 - ${multiplied}")
+//        val q1ymin = 0
+//        val q1xmin = 0
+//        val q1ymax = floor((boardHeight-1).toDouble()/2).roundToInt()
+//        val q1xmax = floor((boardWidth-1).toDouble()/2).roundToInt()
+//
+//        val q2ymin = 0
+//        val q2xmin = ceil((boardWidth+1).toDouble()/2).roundToInt()
+//        val q2ymax = floor((boardHeight-1).toDouble()/2).roundToInt()
+//        val q2xmax = boardWidth
+//
+//        val q3ymin = ceil((boardHeight+1).toDouble()/2).roundToInt()
+//        val q3xmin = 0
+//        val q3ymax = boardHeight
+//        val q3xmax = floor((boardWidth-1).toDouble()/2).roundToInt()
+//
+//        val q4ymin = ceil((boardHeight+1).toDouble()/2).roundToInt()
+//        val q4xmin = ceil((boardWidth+1).toDouble()/2).roundToInt()
+//        val q4ymax = boardHeight
+//        val q4xmax = boardWidth
+//
+//        val coordsArray = arrayListOf(
+//            Pair(Pair(q1ymin, q1xmin), Pair(q1ymax, q1xmax)),
+//            Pair(Pair(q2ymin, q2xmin), Pair(q2ymax, q2xmax)),
+//            Pair(Pair(q3ymin,
+//                    q3xmin), Pair(q3ymax,
+//                    q3xmax)),
+//            Pair(Pair(q4ymin,
+//                    q4xmin), Pair( q4ymax,
+//                    q4xmax )),
+//        )
+//
+//    val sums = arrayListOf<Int>()
+//    println("$boardHeight - $boardWidth")
+//    coordsArray.forEachIndexed { index, pair ->
+////            println("$index - $pair")
+//        parsed.map {
+//            if (it.px >= pair.first.second && it.px <= pair.second.second &&
+//                it.py >= pair.first.first && it.py <= pair.second.first
+//                ) {
+//                if (index == 2) println(it)
+//                1
+//
+//            }
+//                else 0
+//        }.sum().let {
+//            sums.add(it)
+////            println(it)
+//        }
+//    }
+//    var multiplied = 1
+//    for (num in sums) {
+//        multiplied = multiplied *num
+//    }
+//    println("result 2 - ${multiplied}")
 }
 
 
