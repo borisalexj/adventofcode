@@ -8,10 +8,10 @@ import kotlin.math.roundToLong
 // 10 000 000 008 400
 fun main() {
     // https://ua.onlinemschool.com/math/library/analytic_geometry/lines_intersection/
-//    val bufferedReader: BufferedReader = File("input13.txt").bufferedReader()
-//    val inputString = bufferedReader.use { it.readLines() }
-//    val input = inputString.filter { it.isNotEmpty() }.toMutableList()
-    val input = sampleInput13
+    val bufferedReader: BufferedReader = File("input13.txt").bufferedReader()
+    val inputString = bufferedReader.use { it.readLines() }
+    val input = inputString.filter { it.isNotEmpty() }.toMutableList()
+//    val input = sampleInput13
     println(input)
 
     val parsedInput = arrayListOf<Machine>()
@@ -27,8 +27,8 @@ fun main() {
         val machine = Machine(
             Pair(ax.toLong(), ay.toLong()),
             Pair(bx.toLong(), by.toLong()),
-            Pair(px.toLong(),py.toLong()),
-//            Pair(px.toLong() + 10000000000000, py.toLong() + 10000000000000),
+//            Pair(px.toLong(),py.toLong()),
+            Pair(px.toLong() + 10000000000000, py.toLong() + 10000000000000),
         )
         parsedInput.add(machine)
     }
