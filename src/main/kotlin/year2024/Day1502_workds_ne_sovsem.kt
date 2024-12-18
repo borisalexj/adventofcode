@@ -37,6 +37,7 @@ fun main() {
 //    input.forEach { println(it.joinToString("")) }
 //    input.forEach { println(it) }
 //
+
     var input = realInput15.map {
         it.split("").filter { it.isNotEmpty() }.map {
             if (it == "@") arrayListOf(it, ".")
@@ -145,6 +146,9 @@ fun main() {
 //    }
     println("Result 2 - ${res.size}")
     println("Result 2 - ${res.sum()}")
+    realInput15.map { it.split("").toMutableList()}.flatten().filter {it == "O"}.size.let {println("0 - $it")}
+    input.flatten().filter {it == "["}.size.let { println("[ - $it")}
+    input.flatten().filter {it == "]"}.size.let { println("] - $it")}
 }
 
 val movableL = "["
