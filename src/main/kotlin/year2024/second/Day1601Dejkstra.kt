@@ -18,23 +18,28 @@ fun main() {
     val endX = parsed.find { it.contains("E") }!!.indexOf("E")
     val endY = parsed.indexOfFirst { it.contains("E") }
 
-    parsed.forEach { println(it.joinToString ()) }
-//    parsed.map {
-//        it.joinToString()
-//    }.let { println(it) }
+    parsed.forEach { println(it.joinToString ("")) }
     println("$startY, $startX")
 
-    val result = arrayListOf<Path>()
+    val result = arrayListOf<ArrayList<Int>>()
+    parsed.forEachIndexed { indexY, strings ->
+        val tmp = arrayListOf<Int>()
+        strings.forEachIndexed { indexX, s ->
+            tmp.add(Int.MAX_VALUE)
+        }
+        result.add(tmp)
+    }
+//    result.forEach { println(it.joinToString (".")) }
+
 
     moveRecursively16v2d(parsed, startY, startX, dirY = 0, dirX = 1, score = 0, result = result)
-//    moveRecursively16v2d(parsed, startY, startX, dirY = -1, dirX = 0, score = 0+ scoreBonus, result = result)
-    val min = result.map { it.score }.min()
-    println(min)
-    println(result.filter { it.score == min }.size)
-    result.filter { it.score == min }.forEach {
-        println("-${it.score}----------------")
-        drawPathOnBoard(parsed, it.moves)
+
+
+    println("-------------------")
+    result[endY][endX].let {
+        println(it) // correct 147628
     }
+
 }
 
 //fun drawPathOnBoard(parsed: List<List<String>>, path : ArrayList<Move>) {
@@ -52,50 +57,28 @@ fun main() {
 //}
 
 //var step = 0
-fun moveRecursively16v2d(parsed: List<List<String>>, curY: Int, curX: Int, dirY: Int, dirX: Int, score: Int, path : ArrayList<Move> = arrayListOf(), result: ArrayList<Path>) {
-    step = step +1
-//    if (step == 10) throw IllegalStateException()
-//    drawPathOnBoard(parsed, path)
-//    println(path)
+fun moveRecursively16v2d(parsed: List<List<String>>, curY: Int, curX: Int, dirY: Int, dirX: Int, score : Int, result: ArrayList<ArrayList<Int>>) {
+    val current = parsed[curY][curX]
+//    println("$curY - $curX - $dirY - $dirX - ${parsed[curY][curX]} - $score")
+    if (parsed[curY][curX] == "#") return
     if (parsed[curY][curX] == "E") {
-         // success
-//        println(result)
-        result.add(Path(
-            moves = path,
-            score = score
-
-        ))
-        return
+        println("score - $score")
+//        throw IllegalStateException("finished")
     }
-    if (parsed[curY][curX] == "#") {
-//        result.add(Path(path,score))
-        return
-    } //fuck  }
-
-    if (path.any {it.x == curX && it.y == curY && it.dY == dirY && it.dX == dirX }) { return }
-
-    val m = Move(curY, curX, dirY, dirX)
-//    val newPath : ArrayList<Move> = arrayListOf()
-//    newPath.addAll(path)
-//    newPath.add(m)
-
-    path.add( m)
-    val newPath1 : ArrayList<Move> = arrayListOf()
-    val newPath2 : ArrayList<Move> = arrayListOf()
-    newPath1.addAll(path)
-    newPath2.addAll(path)
-
-
-    moveRecursively16v2d(parsed, curY + dirY, curX + dirX, dirY, dirX, score + 1, path, result = result)
-    if (dirY != 0 ) {
-        moveRecursively16v2d(parsed, curY + dirY, curX + dirX, 0, -1, score + 1 + scoreBonus, newPath1, result = result)
-        moveRecursively16v2d(parsed, curY + dirY, curX + dirX, 0, +1, score + 1 + scoreBonus, newPath2, result = result)
-    } else if (dirX != 0 ) {
-        moveRecursively16v2d(parsed, curY + dirY, curX + dirX, -1, 0, score + 1+ scoreBonus, newPath1, result = result)
-        moveRecursively16v2d(parsed, curY + dirY, curX + dirX, +1, 0, score + 1 +scoreBonus, newPath2, result = result)
-
+    if (result[curY][curX] > score) {
+        result[curY][curX] = score
+        moveRecursively16v2d(parsed, curY + dirY, curX + dirX, dirY, dirX, score + 1, result = result)
+        if (dirY != 0 ) {
+            moveRecursively16v2d(parsed, curY, curX -1, 0, -1, score + 1 + scoreBonus, result = result)
+            moveRecursively16v2d(parsed, curY, curX + 1, 0, +1, score + 1 + scoreBonus,  result = result)
+        } else if (dirX != 0 ) {
+            moveRecursively16v2d(parsed, curY -1, curX, -1, 0, score + 1+ scoreBonus, result = result)
+            moveRecursively16v2d(parsed, curY +1, curX, +1, 0, score + 1 +scoreBonus, result = result)
+        } else {
+            throw IllegalStateException()
+        }
     } else {
-        throw IllegalStateException()
+        return
     }
 }
 //val scoreBonus = 1000
