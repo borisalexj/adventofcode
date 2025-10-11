@@ -25,7 +25,7 @@ fun main() {
 
     println("----------------")
     println("Result 1:")
-    println(result)
+//    println(result)
     result.filter { !it.value.contains("impossible") }.keys.map {
         println("$it - ${result[it]}")
      }.size.let { println(it) }

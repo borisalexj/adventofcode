@@ -3,10 +3,10 @@ package year2024
 import kotlin.math.min
 
 fun main() {
-//    val towels = day19sample1.split(", ").toMutableList()
-//    val expected = day19sample2
-    val towels = day19real1.split(", ").toMutableList()
-    val expected = day19real2
+    val towels = day19sample1.split(", ").toMutableList()
+    val expected = day19sample2
+//    val towels = day19real1.split(", ").toMutableList()
+//    val expected = day19real2
     println(towels)
 
     val result = hashMapOf<String, ArrayList<String>>()
